@@ -1,25 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Import react components
+import React, { useState } from "react";
+
+//import assets
+
+//import styles
+import "./App.css";
+
+//import pagination components
+import TypeDeBien from "./components/TypeDeBien";
+import EtatDuBien from "./components/EtatDuBien";
+import UsageDuBien from "./components/UsageDuBien";
+import VotreSituationActuelle from "./components/VotreSituationActuelle";
+import SituationDuBien from "./components/SituationDuBien";
+import MontantDuProjet from "./components/MontantDuProjet";
+import UserInformation from "./components/UserInformation";
+import FinalScreen from "./components/FinalScreen";
+
+//Run app
 
 function App() {
+  // const [pagination, usePagination] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div>Test</div>
+      <TypeDeBien />
+      <EtatDuBien />
+      <UsageDuBien />
+      <VotreSituationActuelle />
+      <SituationDuBien />
+      <MontantDuProjet />
+      <UserInformation />
+      <FinalScreen />
+      <div>test final</div>
+    </>
   );
 }
 
