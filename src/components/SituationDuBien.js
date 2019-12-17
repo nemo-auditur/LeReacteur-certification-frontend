@@ -1,10 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SituationDuBien = props => {
-  const { pagination, setPagination } = props;
+  const {
+    pagination,
+    setPagination,
+    answers,
+    setAnswers,
+    copyGlobalObject
+  } = props;
+
+  const keyAddresseOfProperty = "addressOfProperty";
+  const keycountryOfProperty = "country";
+  const keycityOrZipCode = "cityOrZipCode";
+
+  const [countryOfProperty, setCountryOfProperty] = useState("France");
+  const [townOfProperty, seTownOfProperty] = useState("Paris");
   return (
     <>
-      <div>SituationDuBien</div>
+      <h1>TypeDuBien</h1>
+      <div>{JSON.stringify(answers)}</div>
+
+      <form onSubmit={() => {}}>
+        <div>Dans quel pays se situe votre projet?</div>
+        <input
+          type="text"
+          name="countryOfProperty"
+          onChange={event => {
+            setCountryOfProperty(event.target.value);
+          }}
+        />
+        <div>Ville ou code postal</div>
+        <input
+          type="text"
+          name="townOfProperty"
+          onChange={event => {
+            seTownOfProperty(event.target.value);
+          }}
+        />
+      </form>
       <button
         onClick={() => {
           setPagination(pagination - 1);
@@ -15,11 +48,24 @@ const SituationDuBien = props => {
       <button
         onClick={() => {
           setPagination(pagination + 1);
+          copyGlobalObject(
+            answers,
+            setAnswers,
+            keyAddresseOfProperty,
+            countryOfProperty,
+            keycountryOfProperty
+          );
+          copyGlobalObject(
+            answers,
+            setAnswers,
+            keyAddresseOfProperty,
+            townOfProperty,
+            keycityOrZipCode
+          );
         }}
       >
         Suivant
       </button>
-      ;
     </>
   );
 };

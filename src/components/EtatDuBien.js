@@ -1,10 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 
 const EtatDuBien = props => {
-  const { pagination, setPagination } = props;
+  const {
+    pagination,
+    setPagination,
+    answers,
+    setAnswers,
+    copyGlobalObject
+  } = props;
+
+  const keyConditionOfProperty = "conditionOfProperty";
+
+  const [valueConditionOfProperty, setValueConditionOfProperty] = useState(
+    "Neuf"
+  );
+
   return (
     <>
-      <div>EtatDuBien</div>
+      <h1>Etat du bien</h1>
+      <div>{JSON.stringify(answers)}</div>
+      <div>{valueConditionOfProperty}</div>
+      <form onSubmit={() => {}}>
+        <input
+          type="radio"
+          name="EtatDuBien"
+          value="Ancien"
+          onChange={event => {
+            setValueConditionOfProperty(event.target.value);
+          }}
+        />
+        <div>Ancien</div>
+        <input
+          type="radio"
+          name="EtatDuBien"
+          value="Neuf"
+          onChange={event => {
+            setValueConditionOfProperty(event.target.value);
+          }}
+        />
+        <div>Neuf</div>
+      </form>
       <button
         onClick={() => {
           setPagination(pagination - 1);
@@ -15,11 +50,16 @@ const EtatDuBien = props => {
       <button
         onClick={() => {
           setPagination(pagination + 1);
+          copyGlobalObject(
+            answers,
+            setAnswers,
+            keyConditionOfProperty,
+            valueConditionOfProperty
+          );
         }}
       >
         Suivant
       </button>
-      ;
     </>
   );
 };

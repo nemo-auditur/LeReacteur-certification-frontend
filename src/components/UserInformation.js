@@ -1,10 +1,20 @@
 import React from "react";
 
 const UserInformation = props => {
-  const { pagination, setPagination } = props;
+  const { pagination, setPagination, answers, setAnswers } = props;
   return (
     <>
-      <div>UserInformation</div>
+      <h1>Vos Coordonnées</h1>
+      <div>{JSON.stringify(answers)}</div>
+
+      <div>Adresse e-mail emprunter</div>
+      <input type="email" name="userEmailAdress" />
+      <div>
+        <input type="checkbox" name="okForCommunication" />
+        <label>
+          J'accepte de recevoir par email des propositions de Meilleurtaux.
+        </label>
+      </div>
       <button
         onClick={() => {
           setPagination(pagination - 1);
@@ -19,7 +29,6 @@ const UserInformation = props => {
       >
         Suivant
       </button>
-      ;
     </>
   );
 };

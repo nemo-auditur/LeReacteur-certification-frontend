@@ -1,10 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 
 const UsageDuBien = props => {
-  const { pagination, setPagination } = props;
+  const {
+    pagination,
+    setPagination,
+    answers,
+    setAnswers,
+    copyGlobalObject
+  } = props;
+
+  const keyUseOfProperty = "useOfProperty";
+
+  const [valueUseOfProperty, setValueUseOfProperty] = useState(
+    "Résidence secondaire"
+  );
+
   return (
     <>
-      <div>UsageDuBien</div>
+      <h1>Usage du bien</h1>
+      <div>{JSON.stringify(answers)}</div>
+      <form onSubmit={() => {}}>
+        <input
+          type="radio"
+          name="UsageDuBien"
+          value="Résidence principale"
+          onChange={event => {
+            setValueUseOfProperty(event.target.value);
+          }}
+        />
+        <div>Résidence principale</div>
+        <input
+          type="radio"
+          name="UsageDuBien"
+          value="Résidence secondaire"
+          onChange={event => {
+            setValueUseOfProperty(event.target.value);
+          }}
+        />
+        <div>Résidence secondaire</div>
+        <input
+          type="radio"
+          name="UsageDuBien"
+          value="Investissemet locatif"
+          onChange={event => {
+            setValueUseOfProperty(event.target.value);
+          }}
+        />
+        <div>Investissement locatif</div>
+      </form>
       <button
         onClick={() => {
           setPagination(pagination - 1);
@@ -15,11 +58,16 @@ const UsageDuBien = props => {
       <button
         onClick={() => {
           setPagination(pagination + 1);
+          copyGlobalObject(
+            answers,
+            setAnswers,
+            keyUseOfProperty,
+            valueUseOfProperty
+          );
         }}
       >
         Suivant
       </button>
-      ;
     </>
   );
 };
