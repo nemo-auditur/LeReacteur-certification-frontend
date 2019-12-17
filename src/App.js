@@ -6,6 +6,9 @@ import React, { useState } from "react";
 //import styles
 import "./App.css";
 
+//import usual components
+import Header from "./components/Header";
+
 //import pagination components
 import TypeDeBien from "./components/TypeDeBien";
 import EtatDuBien from "./components/EtatDuBien";
@@ -19,25 +22,47 @@ import FinalScreen from "./components/FinalScreen";
 //Run app
 
 function App() {
-  const [pagination, setPagination] = useState(7);
+  const [pagination, setPagination] = useState(1);
 
   return (
     <>
-      <div>Test</div>
-
-      {pagination === 1 ? <TypeDeBien setPagination={setPagination} /> : null}
-      {pagination === 2 ? <EtatDuBien setPagination={setPagination} /> : null}
-      {pagination === 3 ? <UsageDuBien setPagination={setPagination} /> : null}
+      <Header />
+      {pagination === 1 ? (
+        <TypeDeBien pagination={pagination} setPagination={setPagination} />
+      ) : null}
+      {pagination === 2 ? (
+        <EtatDuBien pagination={pagination} setPagination={setPagination} />
+      ) : null}
+      {pagination === 3 ? (
+        <UsageDuBien pagination={pagination} setPagination={setPagination} />
+      ) : null}
       {pagination === 4 ? (
-        <VotreSituationActuelle setPagination={setPagination} />
+        <VotreSituationActuelle
+          pagination={pagination}
+          setPagination={setPagination}
+        />
       ) : null}
       {pagination === 5 ? (
-        <MontantDuProjet setPagination={setPagination} />
+        <SituationDuBien
+          pagination={pagination}
+          setPagination={setPagination}
+        />
       ) : null}
       {pagination === 6 ? (
-        <UserInformation setPagination={setPagination} />
+        <MontantDuProjet
+          pagination={pagination}
+          setPagination={setPagination}
+        />
       ) : null}
-      {pagination === 7 ? <FinalScreen setPagination={setPagination} /> : null}
+      {pagination === 7 ? (
+        <UserInformation
+          pagination={pagination}
+          setPagination={setPagination}
+        />
+      ) : null}
+      {pagination === 8 ? (
+        <FinalScreen pagination={pagination} setPagination={setPagination} />
+      ) : null}
 
       <div>test final</div>
     </>

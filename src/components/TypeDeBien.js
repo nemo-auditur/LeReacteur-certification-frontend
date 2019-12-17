@@ -1,12 +1,19 @@
 import React from "react";
 
 const TypeDuBien = props => {
-  const { setPagination } = props;
-  console.log(setPagination);
+  const { pagination, setPagination } = props;
+
   return (
     <>
       <div>TypeDuBien</div>
-      <div>{setPagination}</div>
+      <div>{pagination}</div>
+      <button
+        onClick={() => {
+          setPagination(pagination + 1);
+        }}
+      >
+        Suivant
+      </button>
     </>
   );
 };
