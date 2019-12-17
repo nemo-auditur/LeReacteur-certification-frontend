@@ -19,19 +19,26 @@ import FinalScreen from "./components/FinalScreen";
 //Run app
 
 function App() {
-  // const [pagination, usePagination] = useState("");
+  const [pagination, setPagination] = useState(7);
 
   return (
     <>
       <div>Test</div>
-      <TypeDeBien />
-      <EtatDuBien />
-      <UsageDuBien />
-      <VotreSituationActuelle />
-      <SituationDuBien />
-      <MontantDuProjet />
-      <UserInformation />
-      <FinalScreen />
+
+      {pagination === 1 ? <TypeDeBien setPagination={setPagination} /> : null}
+      {pagination === 2 ? <EtatDuBien setPagination={setPagination} /> : null}
+      {pagination === 3 ? <UsageDuBien setPagination={setPagination} /> : null}
+      {pagination === 4 ? (
+        <VotreSituationActuelle setPagination={setPagination} />
+      ) : null}
+      {pagination === 5 ? (
+        <MontantDuProjet setPagination={setPagination} />
+      ) : null}
+      {pagination === 6 ? (
+        <UserInformation setPagination={setPagination} />
+      ) : null}
+      {pagination === 7 ? <FinalScreen setPagination={setPagination} /> : null}
+
       <div>test final</div>
     </>
   );
