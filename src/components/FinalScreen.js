@@ -1,5 +1,8 @@
 import React from "react";
 
+//import cookies
+import Cookies from "js-cookie";
+
 const FinalScreen = props => {
   const { pagination, setPagination, answers } = props;
   return (
@@ -8,7 +11,7 @@ const FinalScreen = props => {
       <div>{JSON.stringify(answers)}</div>
       <button
         onClick={() => {
-          setPagination(pagination - 1);
+          setPagination("userInformation");
         }}
       >
         Précédent

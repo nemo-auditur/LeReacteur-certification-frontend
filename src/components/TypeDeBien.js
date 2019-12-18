@@ -5,13 +5,7 @@ import Cookies from "js-cookie";
 
 const TypeDuBien = props => {
   //get props from App
-  const {
-    pagination,
-    setPagination,
-    answers,
-    setAnswers,
-    copyGlobalObject
-  } = props;
+  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
 
   const typeOfProperty = "typeOfProperty";
   // Declare state for this page
@@ -44,15 +38,11 @@ const TypeDuBien = props => {
       </form>
       <button
         onClick={() => {
-          setPagination(pagination + 1);
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            typeOfProperty,
-            valueTypeOfProperty
-          );
-          Cookies.set("userData", JSON.stringify(answers));
-          Cookies.set("userPage", pagination);
+          setPagination("stateOfGood");
+          setAnswers({
+            ...answers,
+            typeOfProperty: valueTypeOfProperty
+          });
         }}
       >
         Suivant

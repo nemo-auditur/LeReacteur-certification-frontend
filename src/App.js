@@ -28,33 +28,13 @@ import FinalScreen from "./components/FinalScreen";
 //Run app
 
 function App() {
-  const [pagination, setPagination] = useState(0);
-  const [answers, setAnswers] = useState(answersTemplate);
+  const CookiesPage = Cookies.get("userPage") || "home";
+  const CookiesData = Cookies.get("userData") || answersTemplate;
+
+  const [pagination, setPagination] = useState(CookiesPage);
+  const [answers, setAnswers] = useState(CookiesData);
 
   // Purpose:  if there are cookies for the user, set answers with cookie data, else, setAnswers with empty global object
-  const getUserData = () => {
-    // variable to get the cookie data
-    const isCookies = Cookies.get("userData");
-    // console.log(isCookies);
-    if (isCookies) {
-      const parsedCookies = isCookies.split("/").join("");
-      const finalObject = JSON.parse(parsedCookies);
-      console.log(finalObject);
-      setAnswers(finalObject);
-    } else {
-      console.log("test");
-      setAnswers(answersTemplate);
-      Cookies.set("userData", answers);
-    }
-  };
-
-  const getUserPage = () => {
-    const isCookies = Number(Cookies.get("userPage"));
-    console.log(isCookies);
-    if (isCookies) {
-      setPagination(isCookies);
-    }
-  };
 
   // Purpose: copy an object and inject data in the global state
   const copyGlobalObject = (
@@ -67,7 +47,10 @@ function App() {
     let answersCopy = Object.assign({}, answers);
 
     // 1st condition: handle the case where there are severa inputs to add to the object / 2nd condition: handle cases where there is only one input to add to the object.
-    if (answersCopy[parameter][parameter2] === "") {
+    if (
+      answersCopy[parameter][parameter2] === "" ||
+      answersCopy[parameter][parameter2] === 0
+    ) {
       answersCopy[parameter][parameter2] = value;
     } else {
       answersCopy[parameter] = value;
@@ -77,14 +60,24 @@ function App() {
   };
 
   useEffect(() => {
-    getUserData();
-    getUserPage();
-  }, []);
+    const getCookieForParseIt = Cookies.get("userData");
+    console.log(typeof getCookieForParseIt);
+    console.log(getCookieForParseIt);
+    // const answersParsed = getCookieForParseIt.split("/").join("");
+    // console.log(getCookieForParseIt);
+    Cookies.set("userData", answers);
+  }, [answers]);
+
+  useEffect(() => {
+    Cookies.set("userPage", pagination);
+  }, [pagination]);
+
+  // console.log(Cookies.get("userData"));
 
   return (
     <>
       <Header />
-      {pagination === 0 ? (
+      {pagination === "home" ? (
         <TypeDeBien
           pagination={pagination}
           setPagination={setPagination}
@@ -93,7 +86,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 1 ? (
+      {pagination === "stateOfGood" ? (
         <EtatDuBien
           pagination={pagination}
           setPagination={setPagination}
@@ -102,7 +95,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 2 ? (
+      {pagination === "useOfGood" ? (
         <UsageDuBien
           pagination={pagination}
           setPagination={setPagination}
@@ -111,7 +104,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 3 ? (
+      {pagination === "actualSituation" ? (
         <VotreSituationActuelle
           pagination={pagination}
           setPagination={setPagination}
@@ -120,7 +113,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 4 ? (
+      {pagination === "goodSituation" ? (
         <SituationDuBien
           pagination={pagination}
           setPagination={setPagination}
@@ -129,7 +122,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 5 ? (
+      {pagination === "projectAmout" ? (
         <MontantDuProjet
           pagination={pagination}
           setPagination={setPagination}
@@ -138,7 +131,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 6 ? (
+      {pagination === "userInformation" ? (
         <UserInformation
           pagination={pagination}
           setPagination={setPagination}
@@ -147,7 +140,7 @@ function App() {
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
-      {pagination === 7 ? (
+      {pagination === "finalPage" ? (
         <FinalScreen
           pagination={pagination}
           setPagination={setPagination}

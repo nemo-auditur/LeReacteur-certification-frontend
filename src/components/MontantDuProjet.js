@@ -5,13 +5,7 @@ import Cookies from "js-cookie";
 
 const MontantDuProjet = props => {
   //Get props
-  const {
-    pagination,
-    setPagination,
-    answers,
-    setAnswers,
-    copyGlobalObject
-  } = props;
+  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
 
   //
   const keyAmountOfProject = "amountOfProject";
@@ -23,8 +17,20 @@ const MontantDuProjet = props => {
   //declare state
   const [estimatedAcquireAmount, setEstimatedAcquireAmount] = useState(0);
   const [estimatedWorksAmount, setEstimatedWorksAmount] = useState(0);
-  const [notaryFees, setNotaryFees] = useState(0);
-  const [totalAmount, setTotalAmount] = useState(0);
+
+  const notaryOldRate = 0.0738;
+
+  const notaryNewRate = 0.018;
+
+  const rate =
+    answers["conditionOfProperty"] === "Ancien" ? notaryOldRate : notaryNewRate;
+  const notaryFees = estimatedAcquireAmount * rate;
+
+  const calculTotalAmount =
+    Number(estimatedAcquireAmount) +
+    Number(notaryFees) +
+    Number(estimatedWorksAmount);
+
   return (
     <>
       <div>{JSON.stringify(answers)}</div>
@@ -34,8 +40,13 @@ const MontantDuProjet = props => {
           type="number"
           name="MontantEstimeAcquisition"
           onChange={event => {
-            setEstimatedAcquireAmount(Number(event.target.value));
-            // setTotalAmount((totalAmount += Number(event.target.value)));
+            setEstimatedAcquireAmount(event.target.value);
+            setAnswers({
+              ...answers,
+              amountOfProject: {
+                estimateAmountOfAcquisition: estimatedAcquireAmount
+              }
+            });
           }}
         />
         <div>Montant estimé des travaux</div>
@@ -43,62 +54,36 @@ const MontantDuProjet = props => {
           type="number"
           name="MontantEstimeDesTravaux"
           onChange={event => {
-            setEstimatedWorksAmount(Number(event.target.value));
-            // setTotalAmount((totalAmount += Number(event.target.value)));
+            setEstimatedWorksAmount(event.target.value);
+            setAnswers({
+              ...answers,
+              amountOfProject: { estimateAmountOfWorkds: estimatedWorksAmount }
+            });
           }}
         />
         <div>Frais de notaire</div>
-        <input
-          type="number"
-          name="FraisDeNotaire"
-          onChange={event => {
-            setNotaryFees(Number(event.target.value));
-            // setTotalAmount((totalAmount += Number(event.target.value)));
-          }}
-        />
+        <input type="number" name="FraisDeNotaire" value={notaryFees} />
         <div>Budget total estimé du projet</div>
-        <input type="number" name="BudgetTotal" value={totalAmount} />
+        <input type="number" name="BudgetTotal" value={calculTotalAmount} />
       </form>
       <button
         onClick={() => {
-          setPagination(pagination - 1);
+          setPagination("goodSituation");
         }}
       >
         Précédent
       </button>
       <button
         onClick={() => {
-          setPagination(pagination + 1);
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyAmountOfProject,
-            estimatedAcquireAmount,
-            keyEstimateAmountOfAcquisition
-          );
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyAmountOfProject,
-            estimatedWorksAmount,
-            keyEstimateAmountOfWorkds
-          );
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyAmountOfProject,
-            notaryFees,
-            keyNotaryFees
-          );
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyAmountOfProject,
-            totalAmount,
-            keyTotalBudget
-          );
-          Cookies.set("userData", JSON.stringify(answers));
-          Cookies.set("userPage", pagination);
+          setPagination("userInformation");
+          setAnswers({
+            ...answers,
+            amountOfProject: { notaryFees: notaryFees }
+          });
+          setAnswers({
+            ...answers,
+            amountOfProject: { totalBudget: calculTotalAmount }
+          });
         }}
       >
         Suivant

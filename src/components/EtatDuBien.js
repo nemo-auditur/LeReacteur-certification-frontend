@@ -4,13 +4,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const EtatDuBien = props => {
-  const {
-    pagination,
-    setPagination,
-    answers,
-    setAnswers,
-    copyGlobalObject
-  } = props;
+  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
 
   const keyConditionOfProperty = "conditionOfProperty";
 
@@ -45,22 +39,18 @@ const EtatDuBien = props => {
       </form>
       <button
         onClick={() => {
-          setPagination(pagination - 1);
+          setPagination("home");
         }}
       >
         Précédent
       </button>
       <button
         onClick={() => {
-          setPagination(pagination + 1);
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyConditionOfProperty,
-            valueConditionOfProperty
-          );
-          Cookies.set("userData", JSON.stringify(answers));
-          Cookies.set("userPage", pagination);
+          setPagination("useOfGood");
+          setAnswers({
+            ...answers,
+            conditionOfProperty: valueConditionOfProperty
+          });
         }}
       >
         Suivant

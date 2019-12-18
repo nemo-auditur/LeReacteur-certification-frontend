@@ -4,13 +4,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const UserInformation = props => {
-  const {
-    pagination,
-    setPagination,
-    answers,
-    setAnswers,
-    copyGlobalObject
-  } = props;
+  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
 
   const keyUsersMailAdress = "usersMailAdress";
   const keyEmailCheckIn = "emailCheckIn";
@@ -39,6 +33,10 @@ const UserInformation = props => {
           name="okForCommunication"
           onClick={event => {
             setEmailAcceptation(event.target.value);
+            setAnswers({
+              ...answers,
+              usersMailAdress: userEmail
+            });
           }}
         />
         <label>
@@ -47,24 +45,18 @@ const UserInformation = props => {
       </div>
       <button
         onClick={() => {
-          setPagination(pagination - 1);
+          setPagination("projectAmout");
+          setAnswers({
+            ...answers,
+            emailCheckIn: emailAcceptation
+          });
         }}
       >
         Précédent
       </button>
       <button
         onClick={() => {
-          setPagination(pagination + 1);
-          copyGlobalObject(answers, setAnswers, keyUsersMailAdress, userEmail);
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyEmailCheckIn,
-            emailAcceptation
-          );
-          Cookies.set("userData", answers);
-          Cookies.set("userPage", pagination);
-          console.log(answers);
+          setPagination("finalPage");
         }}
       >
         Suivant

@@ -10,10 +10,10 @@ const answers = {
     cityOrZipCode: ""
   },
   amountOfProject: {
-    estimateAmountOfAcquisition: "",
-    estimateAmountOfWorkds: "",
-    notaryFees: "",
-    totalBudget: ""
+    estimateAmountOfAcquisition: 0,
+    estimateAmountOfWorkds: 0,
+    notaryFees: 0,
+    totalBudget: 0
   }
 };
 
