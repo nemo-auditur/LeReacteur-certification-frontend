@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//import cookies
+import Cookies from "js-cookie";
+
 const MontantDuProjet = props => {
   //Get props
   const {
@@ -94,6 +97,8 @@ const MontantDuProjet = props => {
             totalAmount,
             keyTotalBudget
           );
+          Cookies.set("userData", JSON.stringify(answers));
+          Cookies.set("userPage", pagination);
         }}
       >
         Suivant

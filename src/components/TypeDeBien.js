@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//import cookies
+import Cookies from "js-cookie";
+
 const TypeDuBien = props => {
   //get props from App
   const {
@@ -48,6 +51,8 @@ const TypeDuBien = props => {
             typeOfProperty,
             valueTypeOfProperty
           );
+          Cookies.set("userData", JSON.stringify(answers));
+          Cookies.set("userPage", pagination);
         }}
       >
         Suivant

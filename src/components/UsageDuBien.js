@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//import cookies
+import Cookies from "js-cookie";
+
 const UsageDuBien = props => {
   const {
     pagination,
@@ -64,6 +67,8 @@ const UsageDuBien = props => {
             keyUseOfProperty,
             valueUseOfProperty
           );
+          Cookies.set("userData", JSON.stringify(answers));
+          Cookies.set("userPage", pagination);
         }}
       >
         Suivant

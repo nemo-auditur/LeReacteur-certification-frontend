@@ -1,7 +1,7 @@
 import React from "react";
 
 const FinalScreen = props => {
-  const { pagination, setPagination, answers, setAnswers } = props;
+  const { pagination, setPagination, answers } = props;
   return (
     <>
       <div>FinalScreen</div>

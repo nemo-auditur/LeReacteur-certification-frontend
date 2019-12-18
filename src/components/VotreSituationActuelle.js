@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//import cookies
+import Cookies from "js-cookie";
+
 const VotreSituationActuelle = props => {
   const {
     pagination,
@@ -65,6 +68,8 @@ const VotreSituationActuelle = props => {
             keyActualSituationOfOwner,
             actualSituationOfOwner
           );
+          Cookies.set("userData", JSON.stringify(answers));
+          Cookies.set("userPage", pagination + 1);
         }}
       >
         Suivant

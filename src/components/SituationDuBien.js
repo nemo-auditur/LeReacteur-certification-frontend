@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+//import cookies
+import Cookies from "js-cookie";
+
 const SituationDuBien = props => {
   const {
     pagination,
@@ -20,7 +23,7 @@ const SituationDuBien = props => {
       <h1>TypeDuBien</h1>
       <div>{JSON.stringify(answers)}</div>
 
-      <form onSubmit={() => {}}>
+      <form>
         <div>Dans quel pays se situe votre projet?</div>
         <input
           type="text"
@@ -62,6 +65,8 @@ const SituationDuBien = props => {
             townOfProperty,
             keycityOrZipCode
           );
+          Cookies.set("userData", JSON.stringify(answers));
+          Cookies.set("userPage", pagination);
         }}
       >
         Suivant

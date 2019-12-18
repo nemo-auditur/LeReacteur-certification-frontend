@@ -1,7 +1,10 @@
 // Import react components
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //import assets
+
+//import cookies
+import Cookies from "js-cookie";
 
 //import styles
 import "./App.css";
@@ -28,7 +31,32 @@ function App() {
   const [pagination, setPagination] = useState(0);
   const [answers, setAnswers] = useState(answersTemplate);
 
-  //copy an object
+  // Purpose:  if there are cookies for the user, set answers with cookie data, else, setAnswers with empty global object
+  const getUserData = () => {
+    // variable to get the cookie data
+    const isCookies = Cookies.get("userData");
+    // console.log(isCookies);
+    if (isCookies) {
+      const parsedCookies = isCookies.split("/").join("");
+      const finalObject = JSON.parse(parsedCookies);
+      console.log(finalObject);
+      setAnswers(finalObject);
+    } else {
+      console.log("test");
+      setAnswers(answersTemplate);
+      Cookies.set("userData", answers);
+    }
+  };
+
+  const getUserPage = () => {
+    const isCookies = Number(Cookies.get("userPage"));
+    console.log(isCookies);
+    if (isCookies) {
+      setPagination(isCookies);
+    }
+  };
+
+  // Purpose: copy an object and inject data in the global state
   const copyGlobalObject = (
     answers,
     setAnswers,
@@ -47,6 +75,11 @@ function App() {
     }
     return answersCopy;
   };
+
+  useEffect(() => {
+    getUserData();
+    getUserPage();
+  }, []);
 
   return (
     <>
@@ -119,7 +152,6 @@ function App() {
           pagination={pagination}
           setPagination={setPagination}
           answers={answers}
-          setAnswers={setAnswers}
           copyGlobalObject={copyGlobalObject}
         />
       ) : null}
