@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 
-//import cookies
-import Cookies from "js-cookie";
-
 const VotreSituationActuelle = props => {
   const { setPagination, answers, setAnswers } = props;
 
   const [actualSituationOfOwner, setActualSituationOfOwner] = useState(
-    "Propriétaire"
+    answers.actualSituationOfOwner
   );
   return (
     <>
@@ -15,34 +12,74 @@ const VotreSituationActuelle = props => {
       <div>{JSON.stringify(answers)}</div>
 
       <form onSubmit={() => {}}>
-        <input
-          type="radio"
-          name="SituationActuelle"
-          value="Locataire"
-          onChange={event => setActualSituationOfOwner(event.target.value)}
-        />
         <div>Locataire</div>
         <input
           type="radio"
           name="SituationActuelle"
-          value="Propriétaire"
-          onChange={event => setActualSituationOfOwner(event.target.value)}
+          value="Locataire"
+          checked={answers.actualSituationOfOwner === "Locataire" ? true : null}
+          onChange={event => {
+            setActualSituationOfOwner(event.target.value);
+            setAnswers({
+              ...answers,
+              actualSituationOfOwner: event.target.value
+            });
+          }}
         />
-        <div>Neuf</div>
+        <div>Propriétaire</div>
+        <input
+          type="radio"
+          name="SituationActuelle"
+          value="Propriétaire"
+          checked={
+            answers.actualSituationOfOwner === "Propriétaire" ? true : null
+          }
+          onChange={event => {
+            setActualSituationOfOwner(event.target.value);
+            setAnswers({
+              ...answers,
+              actualSituationOfOwner: event.target.value
+            });
+          }}
+        />
+        <div>Bénéficiaire d'un logement de fonction</div>
+
         <input
           type="radio"
           name="SituationActuelle"
           value="Bénéficiaire d'un logement de fonction"
-          onChange={event => setActualSituationOfOwner(event.target.value)}
+          checked={
+            answers.actualSituationOfOwner ===
+            "Bénéficiaire d'un logement de fonction"
+              ? true
+              : null
+          }
+          onChange={event => {
+            setActualSituationOfOwner(event.target.value);
+            setAnswers({
+              ...answers,
+              actualSituationOfOwner: event.target.value
+            });
+          }}
         />
-        <div>Bénéficiaire d'un logement de fonction</div>
+        <div>Hébergé à titre gratuit</div>
         <input
           type="radio"
           name="SituationActuelle"
           value="Hébergé à titre gratuit"
-          onChange={event => setActualSituationOfOwner(event.target.value)}
+          checked={
+            answers.actualSituationOfOwner === "Hébergé à titre gratuit"
+              ? true
+              : null
+          }
+          onChange={event => {
+            setActualSituationOfOwner(event.target.value);
+            setAnswers({
+              ...answers,
+              actualSituationOfOwner: event.target.value
+            });
+          }}
         />
-        <div>Hébergé à titre gratuit</div>
       </form>
       <button
         onClick={() => {
@@ -54,10 +91,6 @@ const VotreSituationActuelle = props => {
       <button
         onClick={() => {
           setPagination("goodSituation");
-          setAnswers({
-            ...answers,
-            actualSituationOfOwner: actualSituationOfOwner
-          });
         }}
       >
         Suivant

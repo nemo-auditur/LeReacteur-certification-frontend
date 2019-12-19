@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 
-//import cookies
-import Cookies from "js-cookie";
-
 const EtatDuBien = props => {
   const { setPagination, answers, setAnswers } = props;
-
-  const [valueConditionOfProperty, setValueConditionOfProperty] = useState("");
 
   return (
     <>
       <h1>Etat du bien</h1>
       <div>{JSON.stringify(answers)}</div>
-      <div>{valueConditionOfProperty}</div>
       <form onSubmit={() => {}}>
         <input
           type="radio"
           name="EtatDuBien"
           value="Ancien"
+          checked={answers.conditionOfProperty === "Ancien" ? true : null}
           onChange={event => {
-            setValueConditionOfProperty(event.target.value);
+            setAnswers({
+              ...answers,
+              conditionOfProperty: event.target.value
+            });
           }}
         />
         <div>Ancien</div>
@@ -27,8 +25,12 @@ const EtatDuBien = props => {
           type="radio"
           name="EtatDuBien"
           value="Neuf"
+          checked={answers.conditionOfProperty === "Neuf" ? true : null}
           onChange={event => {
-            setValueConditionOfProperty(event.target.value);
+            setAnswers({
+              ...answers,
+              conditionOfProperty: event.target.value
+            });
           }}
         />
         <div>Neuf</div>
@@ -43,10 +45,6 @@ const EtatDuBien = props => {
       <button
         onClick={() => {
           setPagination("useOfGood");
-          setAnswers({
-            ...answers,
-            conditionOfProperty: valueConditionOfProperty
-          });
         }}
       >
         Suivant

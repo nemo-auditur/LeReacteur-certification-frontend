@@ -11,7 +11,7 @@ const answers = {
   },
   amountOfProject: {
     estimateAmountOfAcquisition: 0,
-    estimateAmountOfWorkds: 0,
+    estimateAmountOfWorks: 0,
     notaryFees: 0,
     totalBudget: 0
   }

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
-//import cookies
-import Cookies from "js-cookie";
-
 const MontantDuProjet = props => {
   //Get props
   const { setPagination, answers, setAnswers } = props;
 
   //declare state
-  const [estimatedAcquireAmount, setEstimatedAcquireAmount] = useState(0);
-  const [estimatedWorksAmount, setEstimatedWorksAmount] = useState(0);
+  const [estimatedAcquireAmount, setEstimatedAcquireAmount] = useState(
+    answers.amountOfProject.estimateAmountOfAcquisition || 0
+  );
+  const [estimatedWorksAmount, setEstimatedWorksAmount] = useState(
+    answers.amountOfProject.estimatedWorksAmount || 0
+  );
 
   const notaryOldRate = 0.0738;
 
@@ -17,13 +18,13 @@ const MontantDuProjet = props => {
 
   const rate =
     answers["conditionOfProperty"] === "Ancien" ? notaryOldRate : notaryNewRate;
-  const notaryFees = estimatedAcquireAmount * rate;
+  const notaryFees = (estimatedAcquireAmount * rate).toFixed(2);
 
-  const calculTotalAmount =
+  const calculTotalAmount = (
     Number(estimatedAcquireAmount) +
     Number(notaryFees) +
-    Number(estimatedWorksAmount);
-
+    Number(estimatedWorksAmount)
+  ).toFixed(2);
   return (
     <>
       <div>{JSON.stringify(answers)}</div>
@@ -37,7 +38,8 @@ const MontantDuProjet = props => {
             setAnswers({
               ...answers,
               amountOfProject: {
-                estimateAmountOfAcquisition: estimatedAcquireAmount
+                estimateAmountOfAcquisition: event.target.value,
+                estimateAmountOfWorks: estimatedWorksAmount
               }
             });
           }}
@@ -50,7 +52,10 @@ const MontantDuProjet = props => {
             setEstimatedWorksAmount(event.target.value);
             setAnswers({
               ...answers,
-              amountOfProject: { estimateAmountOfWorkds: estimatedWorksAmount }
+              amountOfProject: {
+                estimateAmountOfAcquisition: estimatedAcquireAmount,
+                estimatedWorksAmount: event.target.value
+              }
             });
           }}
         />
@@ -71,11 +76,12 @@ const MontantDuProjet = props => {
           setPagination("userInformation");
           setAnswers({
             ...answers,
-            amountOfProject: { notaryFees: notaryFees }
-          });
-          setAnswers({
-            ...answers,
-            amountOfProject: { totalBudget: calculTotalAmount }
+            amountOfProject: {
+              estimateAmountOfAcquisition: estimatedAcquireAmount,
+              estimatedWorksAmount: estimatedWorksAmount,
+              notaryFees: notaryFees,
+              totalBudget: calculTotalAmount
+            }
           });
         }}
       >

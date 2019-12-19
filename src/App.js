@@ -1,6 +1,8 @@
 // Import react components
 import React, { useState, useEffect } from "react";
 
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 //import cookies
 import Cookies from "js-cookie";
 
@@ -9,6 +11,9 @@ import "./App.css";
 
 //import usual components
 import Header from "./components/Header";
+
+import BackOffice from "./containers/BackOffice";
+import BackOfficeReadOne from "./containers/BackOfficeReadOne";
 
 //import answers template
 import answersTemplate from "./assets/answersTemplate";
@@ -41,6 +46,7 @@ function App() {
   //setState relying if there are cookies or not
   const [pagination, setPagination] = useState(CookiesPage);
   const [answers, setAnswers] = useState(CookiesData);
+  const [Id, setUserId] = useState("");
 
   //set userData everytime the global state is updated
   useEffect(() => {
@@ -54,70 +60,84 @@ function App() {
 
   return (
     <>
-      <Header />
-      {pagination === "home" ? (
-        <TypeDeBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "stateOfGood" ? (
-        <EtatDuBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "useOfGood" ? (
-        <UsageDuBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "actualSituation" ? (
-        <VotreSituationActuelle
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "goodSituation" ? (
-        <SituationDuBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "projectAmout" ? (
-        <MontantDuProjet
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "userInformation" ? (
-        <UserInformation
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-        />
-      ) : null}
-      {pagination === "finalPage" ? (
-        <FinalScreen
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-        />
-      ) : null}
+      <Router>
+        <Header />
+        <Switch>
+          <Route exact path="/">
+            {pagination === "home" ? (
+              <TypeDeBien
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+            ) : null}
+            {pagination === "stateOfGood" ? (
+              <EtatDuBien
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+            ) : null}
+            {pagination === "useOfGood" ? (
+              <UsageDuBien
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+            ) : null}
+            {pagination === "actualSituation" ? (
+              <VotreSituationActuelle
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+            ) : null}
+            {pagination === "goodSituation" ? (
+              <SituationDuBien
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+            ) : null}
+            {pagination === "projectAmout" ? (
+              <MontantDuProjet
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+              />
+            ) : null}
+            {pagination === "userInformation" ? (
+              <UserInformation
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                setAnswers={setAnswers}
+                setUserId={setUserId}
+              />
+            ) : null}
+            {pagination === "finalPage" ? (
+              <FinalScreen
+                pagination={pagination}
+                setPagination={setPagination}
+                answers={answers}
+                Id={Id}
+              />
+            ) : null}
+          </Route>
+          <Route path="/backoffice">
+            <BackOffice />
+          </Route>
+          <Route path="/backofficereadone">
+            <BackOfficeReadOne />
+          </Route>
+        </Switch>
+      </Router>
     </>
   );
 }

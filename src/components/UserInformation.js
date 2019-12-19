@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-//import cookies
-import Cookies from "js-cookie";
+// import axios to send the file to backend
+import axios from "axios";
 
 const UserInformation = props => {
-  const { setPagination, answers, setAnswers } = props;
+  const { setPagination, answers, setAnswers, setUserId } = props;
 
-  const [userEmail, setUserEmail] = useState("test");
-  const [emailAcceptation, setEmailAcceptation] = useState("");
+  const [userEmail, setUserEmail] = useState(answers.usersMailAdress || "");
+  const [emailAcceptation, setEmailAcceptation] = useState(false);
+
+  // Send the "devis" to database et get the file _id
+  const fetchData = async () => {
+    try {
+      const response = await axios.post("http://localhost:8000/devisvalide", {
+        ...answers
+      });
+      await setUserId(response.data._id);
+    } catch (e) {
+      console.log(e.message);
+    }
+  };
 
   return (
     <>
@@ -18,11 +30,12 @@ const UserInformation = props => {
         <input
           type="text"
           name="mailAdress"
+          value={userEmail}
           onChange={event => {
             setUserEmail(event.target.value);
             setAnswers({
               ...answers,
-              usersMailAdress: userEmail
+              usersMailAdress: event.target.value
             });
           }}
         />
@@ -31,11 +44,16 @@ const UserInformation = props => {
         <input
           type="checkbox"
           name="okForCommunication"
-          onClick={event => {
-            setEmailAcceptation(event.target.value);
+          value={emailAcceptation}
+          onChange={event => {
+            {
+              emailAcceptation === false
+                ? setEmailAcceptation(true)
+                : setEmailAcceptation(false);
+            }
             setAnswers({
               ...answers,
-              emailCheckIn: emailAcceptation
+              emailCheckIn: event.target.value
             });
           }}
         />
@@ -46,10 +64,6 @@ const UserInformation = props => {
       <button
         onClick={() => {
           setPagination("projectAmout");
-          setAnswers({
-            ...answers,
-            emailCheckIn: emailAcceptation
-          });
         }}
       >
         Précédent
@@ -57,6 +71,7 @@ const UserInformation = props => {
       <button
         onClick={() => {
           setPagination("finalPage");
+          fetchData();
         }}
       >
         Suivant

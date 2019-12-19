@@ -4,23 +4,42 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 // import world countries list
-import countries from "../assets/countriesList";
+import countryList from "../assets/countriesList";
 
 const SituationDuBien = props => {
   const { setPagination, answers, setAnswers } = props;
 
-  const [countryOfProperty, setCountryOfProperty] = useState("");
+  const [countryOfProperty, setCountryOfProperty] = useState(
+    answers.addressOfProperty.country || ""
+  );
+  const [townOfProperty, setTownOfProperty] = useState(
+    answers.addressOfProperty.country || ""
+  );
   const [list, setList] = useState([]);
-  const [townOfProperty, setTownOfProperty] = useState();
 
+  // #### Get DATA from VICOPO API ####
   const fetchData = async () => {
     const response = await axios.get(
-      "https://vicopo.selfbuild.fr/cherche/" + countryOfProperty
+      "https://vicopo.selfbuild.fr/cherche/" + townOfProperty
     );
     setList(response.data.cities);
-    console.log(response.data.cities);
   };
 
+  // #### HANDLE COUNTRIES ####
+
+  // Create empty array to store countryList
+  const countryListOption = [];
+  // Get values from every keys
+  const countryListValues = Object.values(countryList);
+
+  //Store in the empty array the list
+  for (let i = 0; i < countryListValues.length; i++) {
+    countryListOption.push(
+      <option value={countryListValues[i]}>{countryListValues[i]}</option>
+    );
+  }
+
+  // #### HANDLE CITIES ####
   const cityArray = [];
   for (let i = 0; i < list.length; i++) {
     const key = list[i];
@@ -38,6 +57,7 @@ const SituationDuBien = props => {
     );
   }
 
+  // #### useEffect to refresh cities data while typing ####
   useEffect(() => {
     fetchData();
   }, [townOfProperty]);
@@ -47,57 +67,47 @@ const SituationDuBien = props => {
       <h1>TypeDuBien</h1>
       <div>{JSON.stringify(answers)}</div>
 
-      <form>
-        <div>Dans quel pays se situe votre projet?</div>
-        <select
-          value={countryOfProperty}
-          onChange={event => {
-            setCountryOfProperty(event.target.value);
-            console.log(countryOfProperty);
-            setAnswers({
-              ...answers,
-              addressOfProperty: {
-                country: countryOfProperty,
-                cityOrZipCode: townOfProperty
-              }
-            });
-          }}
-        >
-          {countries.map(country => {
-            return (
-              <option value={country} key={country}>
-                {country}
-              </option>
-            );
-          })}
-        </select>
-        <div>Ville ou code postal</div>
-        <input
-          value={townOfProperty}
-          onChange={event => {
-            setTownOfProperty(event.target.value);
-          }}
-          autoComplete={cityArray}
-        />
-        {townOfProperty !== undefined ? (
-          <select
-            size={5}
-            value={townOfProperty}
-            onChange={event => {
-              setTownOfProperty(event.target.value);
-              setAnswers({
-                ...answers,
-                addressOfProperty: {
-                  country: countryOfProperty,
-                  cityOrZipCode: townOfProperty
-                }
-              });
-            }}
-          >
-            {cityList}
-          </select>
-        ) : null}
-      </form>
+      <div>Dans quel pays se situe votre projet?</div>
+      <select
+        value={countryOfProperty}
+        onChange={event => {
+          setCountryOfProperty(event.target.value);
+          setAnswers({
+            ...answers,
+            addressOfProperty: {
+              country: event.target.value
+            }
+          });
+        }}
+      >
+        {countryListOption}
+      </select>
+      <div>Ville ou code postal</div>
+      <input
+        value={townOfProperty}
+        onChange={event => {
+          setTownOfProperty(event.target.value);
+        }}
+        // autoComplete={cityArray}
+      />
+
+      <select
+        size={5}
+        value={townOfProperty}
+        onChange={event => {
+          setTownOfProperty(event.target.value);
+          setAnswers({
+            ...answers,
+            addressOfProperty: {
+              country: countryOfProperty,
+              cityOrZipCode: event.target.value
+            }
+          });
+        }}
+      >
+        {cityList}
+      </select>
+
       <button
         onClick={() => {
           setPagination("actualSituation");

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
-//import cookies
-import Cookies from "js-cookie";
-
 const TypeDuBien = props => {
   //get props from App
   const { setPagination, answers, setAnswers } = props;
 
   // Declare state for this page
-  const [valueTypeOfProperty, setValueTypeOfProperty] = useState("Appartement");
+  const [valueTypeOfProperty, setValueTypeOfProperty] = useState(
+    answers.typeOfProperty
+  );
 
   return (
     <>
@@ -20,6 +19,7 @@ const TypeDuBien = props => {
           type="radio"
           name="typeOfProperty"
           value="Maison"
+          check={answers.typeOfProperty === "Maison" ? true : null}
           onChange={event => {
             setValueTypeOfProperty(event.target.value);
           }}
@@ -29,6 +29,7 @@ const TypeDuBien = props => {
           type="radio"
           name="typeOfProperty"
           value="Appartement"
+          check={answers.typeOfProperty === "Appartement" ? true : null}
           onChange={event => {
             setValueTypeOfProperty(event.target.value);
           }}
