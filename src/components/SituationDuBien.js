@@ -3,20 +3,13 @@ import React, { useState, useEffect } from "react";
 // import of axios for request
 import axios from "axios";
 
-//import cookies
-import Cookies from "js-cookie";
-
 // import world countries list
 import countries from "../assets/countriesList";
 
 const SituationDuBien = props => {
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
+  const { setPagination, answers, setAnswers } = props;
 
-  const keyAddresseOfProperty = "addressOfProperty";
-  const keycountryOfProperty = "country";
-  const keycityOrZipCode = "cityOrZipCode";
-
-  const [countryOfProperty, setCountryOfProperty] = useState("France");
+  const [countryOfProperty, setCountryOfProperty] = useState("");
   const [list, setList] = useState([]);
   const [townOfProperty, setTownOfProperty] = useState();
 
@@ -60,9 +53,13 @@ const SituationDuBien = props => {
           value={countryOfProperty}
           onChange={event => {
             setCountryOfProperty(event.target.value);
+            console.log(countryOfProperty);
             setAnswers({
               ...answers,
-              addressOfProperty: { country: countryOfProperty }
+              addressOfProperty: {
+                country: countryOfProperty,
+                cityOrZipCode: townOfProperty
+              }
             });
           }}
         >
@@ -90,7 +87,10 @@ const SituationDuBien = props => {
               setTownOfProperty(event.target.value);
               setAnswers({
                 ...answers,
-                addressOfProperty: { cityOrZipCode: townOfProperty }
+                addressOfProperty: {
+                  country: countryOfProperty,
+                  cityOrZipCode: townOfProperty
+                }
               });
             }}
           >

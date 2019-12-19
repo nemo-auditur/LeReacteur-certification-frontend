@@ -4,13 +4,9 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const EtatDuBien = props => {
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
+  const { setPagination, answers, setAnswers } = props;
 
-  const keyConditionOfProperty = "conditionOfProperty";
-
-  const [valueConditionOfProperty, setValueConditionOfProperty] = useState(
-    "Neuf"
-  );
+  const [valueConditionOfProperty, setValueConditionOfProperty] = useState("");
 
   return (
     <>

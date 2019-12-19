@@ -5,14 +5,7 @@ import Cookies from "js-cookie";
 
 const MontantDuProjet = props => {
   //Get props
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
-
-  //
-  const keyAmountOfProject = "amountOfProject";
-  const keyEstimateAmountOfAcquisition = "estimateAmountOfAcquisition";
-  const keyEstimateAmountOfWorkds = "estimateAmountOfWorkds";
-  const keyNotaryFees = "notaryFees";
-  const keyTotalBudget = "totalBudget";
+  const { setPagination, answers, setAnswers } = props;
 
   //declare state
   const [estimatedAcquireAmount, setEstimatedAcquireAmount] = useState(0);

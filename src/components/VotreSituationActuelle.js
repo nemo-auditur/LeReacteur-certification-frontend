@@ -4,9 +4,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const VotreSituationActuelle = props => {
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
-
-  const keyActualSituationOfOwner = "actualSituationOfOwner";
+  const { setPagination, answers, setAnswers } = props;
 
   const [actualSituationOfOwner, setActualSituationOfOwner] = useState(
     "Propriétaire"

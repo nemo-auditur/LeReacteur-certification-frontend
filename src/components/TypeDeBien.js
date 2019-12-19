@@ -5,9 +5,8 @@ import Cookies from "js-cookie";
 
 const TypeDuBien = props => {
   //get props from App
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
+  const { setPagination, answers, setAnswers } = props;
 
-  const typeOfProperty = "typeOfProperty";
   // Declare state for this page
   const [valueTypeOfProperty, setValueTypeOfProperty] = useState("Appartement");
 

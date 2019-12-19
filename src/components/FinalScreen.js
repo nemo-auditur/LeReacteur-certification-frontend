@@ -1,10 +1,7 @@
 import React from "react";
 
-//import cookies
-import Cookies from "js-cookie";
-
 const FinalScreen = props => {
-  const { pagination, setPagination, answers } = props;
+  const { setPagination, answers } = props;
   return (
     <>
       <div>FinalScreen</div>

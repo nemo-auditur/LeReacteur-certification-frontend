@@ -4,9 +4,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const UsageDuBien = props => {
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
-
-  const keyUseOfProperty = "useOfProperty";
+  const { setPagination, answers, setAnswers } = props;
 
   const [valueUseOfProperty, setValueUseOfProperty] = useState(
     "Résidence secondaire"

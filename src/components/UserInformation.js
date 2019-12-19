@@ -4,10 +4,7 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const UserInformation = props => {
-  const { setPagination, answers, setAnswers, copyGlobalObject } = props;
-
-  const keyUsersMailAdress = "usersMailAdress";
-  const keyEmailCheckIn = "emailCheckIn";
+  const { setPagination, answers, setAnswers } = props;
 
   const [userEmail, setUserEmail] = useState("test");
   const [emailAcceptation, setEmailAcceptation] = useState("");
@@ -23,7 +20,10 @@ const UserInformation = props => {
           name="mailAdress"
           onChange={event => {
             setUserEmail(event.target.value);
-            console.log(userEmail);
+            setAnswers({
+              ...answers,
+              usersMailAdress: userEmail
+            });
           }}
         />
       </form>
@@ -35,7 +35,7 @@ const UserInformation = props => {
             setEmailAcceptation(event.target.value);
             setAnswers({
               ...answers,
-              usersMailAdress: userEmail
+              emailCheckIn: emailAcceptation
             });
           }}
         />
