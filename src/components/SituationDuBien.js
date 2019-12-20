@@ -7,7 +7,13 @@ import axios from "axios";
 import countryList from "../assets/countriesList";
 
 const SituationDuBien = props => {
-  const { setPagination, answers, setAnswers } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setProgressBar,
+    progressBar
+  } = props;
 
   const [countryOfProperty, setCountryOfProperty] = useState(
     answers.addressOfProperty.country || ""
@@ -111,6 +117,8 @@ const SituationDuBien = props => {
       <button
         onClick={() => {
           setPagination("actualSituation");
+          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
+          console.log(progressBar);
         }}
       >
         Précédent
@@ -118,6 +126,8 @@ const SituationDuBien = props => {
       <button
         onClick={() => {
           setPagination("projectAmout");
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
+          console.log(progressBar);
         }}
       >
         Suivant

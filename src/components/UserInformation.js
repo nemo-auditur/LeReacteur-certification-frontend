@@ -1,10 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // import axios to send the file to backend
 import axios from "axios";
 
 const UserInformation = props => {
-  const { setPagination, answers, setAnswers, setUserId } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setUserId,
+    setProgressBar,
+    progressBar
+  } = props;
 
   const [userEmail, setUserEmail] = useState(answers.usersMailAdress || "");
   const [emailAcceptation, setEmailAcceptation] = useState(false);
@@ -64,6 +71,8 @@ const UserInformation = props => {
       <button
         onClick={() => {
           setPagination("projectAmout");
+          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
+          console.log(progressBar);
         }}
       >
         Précédent
@@ -71,6 +80,8 @@ const UserInformation = props => {
       <button
         onClick={() => {
           setPagination("finalPage");
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
+          console.log(progressBar);
           fetchData();
         }}
       >

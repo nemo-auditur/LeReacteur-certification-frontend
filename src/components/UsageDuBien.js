@@ -4,10 +4,16 @@ import React, { useState } from "react";
 import Cookies from "js-cookie";
 
 const UsageDuBien = props => {
-  const { setPagination, answers, setAnswers } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setProgressBar,
+    progressBar
+  } = props;
 
   const [valueUseOfProperty, setValueUseOfProperty] = useState(
-    answers.useOfProperty || null
+    answers.useOfProperty || ""
   );
 
   return (
@@ -19,10 +25,8 @@ const UsageDuBien = props => {
         <input
           type="radio"
           name="UsageDuBien"
-          value="Résidence principale"
-          checked={
-            answers.useOfProperty === "Résidence principale" ? true : null
-          }
+          value={valueUseOfProperty}
+          checked={answers.useOfProperty === "Résidence principale" ? true : ""}
           onChange={event => {
             setValueUseOfProperty(event.target.value);
             setAnswers({
@@ -36,10 +40,8 @@ const UsageDuBien = props => {
         <input
           type="radio"
           name="UsageDuBien"
-          value="Résidence secondaire"
-          checked={
-            answers.useOfProperty === "Résidence secondaire" ? true : null
-          }
+          value={valueUseOfProperty}
+          checked={answers.useOfProperty === "Résidence secondaire" ? true : ""}
           onChange={event => {
             setValueUseOfProperty(event.target.value);
             setAnswers({
@@ -53,9 +55,9 @@ const UsageDuBien = props => {
         <input
           type="radio"
           name="UsageDuBien"
-          value="Investissemet locatif"
+          value={valueUseOfProperty}
           checked={
-            answers.useOfProperty === "Investissemet locatif" ? true : null
+            answers.useOfProperty === "Investissemet locatif" ? true : ""
           }
           onChange={event => {
             setValueUseOfProperty(event.target.value);
@@ -69,6 +71,7 @@ const UsageDuBien = props => {
       <button
         onClick={() => {
           setPagination("stateOfGood");
+          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
         }}
       >
         Précédent
@@ -77,6 +80,7 @@ const UsageDuBien = props => {
         onClick={() => {
           setPagination("actualSituation");
           Cookies.set("userData", JSON.stringify(answers));
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
         }}
       >
         Suivant

@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
 const EtatDuBien = props => {
-  const { setPagination, answers, setAnswers } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setProgressBar,
+    progressBar
+  } = props;
 
   return (
     <>
@@ -12,7 +18,7 @@ const EtatDuBien = props => {
           type="radio"
           name="EtatDuBien"
           value="Ancien"
-          checked={answers.conditionOfProperty === "Ancien" ? true : null}
+          checked={answers.conditionOfProperty === "Ancien" ? true : ""}
           onChange={event => {
             setAnswers({
               ...answers,
@@ -25,7 +31,7 @@ const EtatDuBien = props => {
           type="radio"
           name="EtatDuBien"
           value="Neuf"
-          checked={answers.conditionOfProperty === "Neuf" ? true : null}
+          checked={answers.conditionOfProperty === "Neuf" ? true : ""}
           onChange={event => {
             setAnswers({
               ...answers,
@@ -38,6 +44,8 @@ const EtatDuBien = props => {
       <button
         onClick={() => {
           setPagination("home");
+          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
+          console.log(progressBar);
         }}
       >
         Précédent
@@ -45,6 +53,8 @@ const EtatDuBien = props => {
       <button
         onClick={() => {
           setPagination("useOfGood");
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
+          console.log(progressBar);
         }}
       >
         Suivant

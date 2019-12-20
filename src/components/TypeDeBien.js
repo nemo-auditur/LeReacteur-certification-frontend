@@ -2,7 +2,13 @@ import React, { useState } from "react";
 
 const TypeDuBien = props => {
   //get props from App
-  const { setPagination, answers, setAnswers } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setProgressBar,
+    progressBar
+  } = props;
 
   // Declare state for this page
   const [valueTypeOfProperty, setValueTypeOfProperty] = useState(
@@ -19,7 +25,7 @@ const TypeDuBien = props => {
           type="radio"
           name="typeOfProperty"
           value="Maison"
-          check={answers.typeOfProperty === "Maison" ? true : null}
+          check={answers.typeOfProperty === "Maison" ? true : ""}
           onChange={event => {
             setValueTypeOfProperty(event.target.value);
           }}
@@ -29,7 +35,7 @@ const TypeDuBien = props => {
           type="radio"
           name="typeOfProperty"
           value="Appartement"
-          check={answers.typeOfProperty === "Appartement" ? true : null}
+          check={answers.typeOfProperty === "Appartement" ? true : ""}
           onChange={event => {
             setValueTypeOfProperty(event.target.value);
           }}
@@ -43,6 +49,8 @@ const TypeDuBien = props => {
             ...answers,
             typeOfProperty: valueTypeOfProperty
           });
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
+          console.log(progressBar);
         }}
       >
         Suivant

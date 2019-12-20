@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 
 const VotreSituationActuelle = props => {
-  const { setPagination, answers, setAnswers } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setProgressBar,
+    progressBar
+  } = props;
 
   const [actualSituationOfOwner, setActualSituationOfOwner] = useState(
     answers.actualSituationOfOwner
@@ -16,8 +22,8 @@ const VotreSituationActuelle = props => {
         <input
           type="radio"
           name="SituationActuelle"
-          value="Locataire"
-          checked={answers.actualSituationOfOwner === "Locataire" ? true : null}
+          value={actualSituationOfOwner}
+          checked={answers.actualSituationOfOwner === "Locataire" ? true : ""}
           onChange={event => {
             setActualSituationOfOwner(event.target.value);
             setAnswers({
@@ -30,9 +36,9 @@ const VotreSituationActuelle = props => {
         <input
           type="radio"
           name="SituationActuelle"
-          value="Propriétaire"
+          value={actualSituationOfOwner}
           checked={
-            answers.actualSituationOfOwner === "Propriétaire" ? true : null
+            answers.actualSituationOfOwner === "Propriétaire" ? true : ""
           }
           onChange={event => {
             setActualSituationOfOwner(event.target.value);
@@ -47,7 +53,7 @@ const VotreSituationActuelle = props => {
         <input
           type="radio"
           name="SituationActuelle"
-          value="Bénéficiaire d'un logement de fonction"
+          value={actualSituationOfOwner}
           checked={
             answers.actualSituationOfOwner ===
             "Bénéficiaire d'un logement de fonction"
@@ -66,7 +72,7 @@ const VotreSituationActuelle = props => {
         <input
           type="radio"
           name="SituationActuelle"
-          value="Hébergé à titre gratuit"
+          value={actualSituationOfOwner}
           checked={
             answers.actualSituationOfOwner === "Hébergé à titre gratuit"
               ? true
@@ -84,6 +90,8 @@ const VotreSituationActuelle = props => {
       <button
         onClick={() => {
           setPagination("useOfGood");
+          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
+          console.log(progressBar);
         }}
       >
         Précédent
@@ -91,6 +99,8 @@ const VotreSituationActuelle = props => {
       <button
         onClick={() => {
           setPagination("goodSituation");
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
+          console.log(progressBar);
         }}
       >
         Suivant

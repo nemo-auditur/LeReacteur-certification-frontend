@@ -2,7 +2,13 @@ import React, { useState } from "react";
 
 const MontantDuProjet = props => {
   //Get props
-  const { setPagination, answers, setAnswers } = props;
+  const {
+    setPagination,
+    answers,
+    setAnswers,
+    setProgressBar,
+    progressBar
+  } = props;
 
   //declare state
   const [estimatedAcquireAmount, setEstimatedAcquireAmount] = useState(
@@ -67,6 +73,8 @@ const MontantDuProjet = props => {
       <button
         onClick={() => {
           setPagination("goodSituation");
+          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
+          console.log(progressBar);
         }}
       >
         Précédent
@@ -83,6 +91,8 @@ const MontantDuProjet = props => {
               totalBudget: calculTotalAmount
             }
           });
+          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
+          console.log(progressBar);
         }}
       >
         Suivant
