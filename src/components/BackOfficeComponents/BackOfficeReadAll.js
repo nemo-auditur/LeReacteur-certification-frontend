@@ -4,12 +4,12 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const BackOfficeReadAll = props => {
+  const { devis } = props;
   const deleteDevis = async () => {
     try {
       const response = await axios.get(
         "http://localhost:8000/admintoggle/delete/" + props._id
       );
-      console.log(response.data);
       if (response.data) {
         alert(JSON.stringify(response.data));
       }
@@ -20,18 +20,44 @@ const BackOfficeReadAll = props => {
 
   return (
     <>
-      <Link to={"/backofficereadone/" + props._id} {...props}>
-        <div>{props.usersMailAdress}</div>
-      </Link>
-      <Link to={"/backoffice/"}>
-        <span
-          onClick={() => {
-            deleteDevis();
-          }}
-        >
-          X
-        </span>
-      </Link>
+      <div className="list-of-files">
+        <div className="d-flex backoffice-text-input-container-grey ">
+          <Link
+            to={"/backofficereadone/" + devis._id}
+            {...props}
+            style={{ textDecoration: "none" }}
+          >
+            <div className="d-flex backoffice-text-input-container-grey ">
+              <div className="backoffice-first-element-array-title">
+                {devis.addressOfProperty.cityOrZipCode}
+              </div>
+              <div className="backoffice-array-title">
+                {devis.usersMailAdress}
+              </div>
+              <div className="backoffice-array-title">
+                {devis.typeOfProperty}
+              </div>
+              <div className="backoffice-array-title">
+                {devis.conditionOfProperty}
+              </div>
+              <div className="backoffice-array-title">
+                {devis.amountOfProject.totalBudget}
+              </div>
+            </div>
+          </Link>
+          <Link to={"/backoffice/"} style={{ textDecoration: "none" }}>
+            <div className="backoffice-array-title">
+              <span
+                onClick={() => {
+                  deleteDevis();
+                }}
+              >
+                X
+              </span>
+            </div>
+          </Link>
+        </div>
+      </div>
     </>
   );
 };

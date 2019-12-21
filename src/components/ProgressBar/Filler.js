@@ -2,7 +2,7 @@ import React from "react";
 
 const Filler = props => {
   const { percentage } = props;
-  return <div className="progress-bar" style={{ width: `${percentage}%` }} />;
+  return <div className="filler" style={{ width: `${percentage}%` }} />;
 };
 
 export default Filler;

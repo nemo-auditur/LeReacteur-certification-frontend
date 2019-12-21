@@ -32,11 +32,23 @@ const BackOffice = () => {
       ) : (
         <>
           <div>
-            <span>Bienvenue sur le BackOffice du MeilleurTaux</span>
-            {data.map(devis => {
+            <h1 className="page-title">
+              Bienvenue sur le BackOffice du MeilleurTaux
+            </h1>
+            <div className="d-flex backoffice-text-input-container-grey ">
+              <div className="backoffice-first-element-array-title">Ville</div>
+              <div className="backoffice-array-title">Adresse mail</div>
+              <div className="backoffice-array-title">Type de bien</div>
+              <div className="backoffice-array-title">État du bien</div>
+              <div className="backoffice-array-title">Montant de l'emprunt</div>
+              <div className="backoffice-array-title">Effacer le dossier</div>
+            </div>
+            <div className="blank-div-height-50"></div>
+
+            {data.map((devis, index) => {
               return (
-                <Link to={"/backofficereadone/" + devis._id}>
-                  <BackOfficeReadAll {...devis} />
+                <Link to={"/backofficereadone/" + devis._id} key={index}>
+                  <BackOfficeReadAll devis={devis} />
                 </Link>
               );
             })}

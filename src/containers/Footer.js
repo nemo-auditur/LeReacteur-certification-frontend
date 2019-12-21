@@ -7,7 +7,6 @@ const Footer = props => {
   return (
     <>
       <ProgressBar progressBar={progressBar} />
-      <div>Test</div>
     </>
   );
 };

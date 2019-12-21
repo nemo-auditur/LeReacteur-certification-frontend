@@ -1,60 +1,89 @@
-import React, { useState } from "react";
+import React from "react";
+
+//import component
+import BottomContent from "../containers/BottomContent";
 
 const TypeDuBien = props => {
   //get props from App
   const {
+    pagination,
     setPagination,
     answers,
     setAnswers,
-    setProgressBar,
-    progressBar
+    progressBar,
+    setProgressBar
   } = props;
 
-  // Declare state for this page
-  const [valueTypeOfProperty, setValueTypeOfProperty] = useState(
-    answers.typeOfProperty
-  );
+  //determine previous and next page for the footer
+  const previousPage = null;
+  const nextPage = "stateOfGood";
+
+  //
+  setProgressBar(0);
 
   return (
     <>
-      <h1>TypeDuBien</h1>
-      <div>{JSON.stringify(answers)}</div>
-      <div>{valueTypeOfProperty}</div>
-      <form>
-        <input
-          type="radio"
-          name="typeOfProperty"
-          value="Maison"
-          check={answers.typeOfProperty === "Maison" ? true : ""}
-          onChange={event => {
-            setValueTypeOfProperty(event.target.value);
-          }}
-        />
-        <div>Maison</div>
-        <input
-          type="radio"
-          name="typeOfProperty"
-          value="Appartement"
-          check={answers.typeOfProperty === "Appartement" ? true : ""}
-          onChange={event => {
-            setValueTypeOfProperty(event.target.value);
-          }}
-        />
-        <div>Appartement</div>
-      </form>
-      <button
-        onClick={() => {
-          setPagination("stateOfGood");
-          setAnswers({
-            ...answers,
-            typeOfProperty: valueTypeOfProperty
-          });
-          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
-          console.log(progressBar);
-        }}
-      >
-        Suivant
-      </button>
+      <div className="mb-150">
+        <h1 className="page-title">TYPE DU BIEN</h1>
+        <div className="button-display">
+          <div
+            className={
+              answers.typeOfProperty === "Maison"
+                ? "two-choices-button-on"
+                : "two-choices-button-off"
+            }
+            value="Maison"
+            onClick={event => {
+              setAnswers({
+                ...answers,
+                typeOfProperty: "Maison"
+              });
+              setPagination("stateOfGood");
+            }}
+          >
+            <input
+              type="radio"
+              name="typeOfProperty"
+              value="Maison"
+              checked={answers.typeOfProperty === "Maison" ? true : null}
+              readOnly
+            />
+            MAISON
+          </div>
+          <div
+            className={
+              answers.typeOfProperty === "Appartement"
+                ? "two-choices-button-on"
+                : "two-choices-button-off"
+            }
+            onClick={event => {
+              setAnswers({
+                ...answers,
+                typeOfProperty: "Appartement"
+              });
+              setPagination("stateOfGood");
+            }}
+          >
+            <input
+              type="radio"
+              name="typeOfProperty"
+              value="Appartement"
+              checked={answers.typeOfProperty === "Appartement" ? true : null}
+              readOnly
+            />
+            APPARTEMENT
+          </div>
+        </div>
+      </div>
+      <BottomContent
+        answers={answers}
+        pagination={pagination}
+        setPagination={setPagination}
+        previous={previousPage}
+        next={nextPage}
+        progressBar={progressBar}
+        param={answers.typeOfProperty}
+      />
     </>
   );
 };

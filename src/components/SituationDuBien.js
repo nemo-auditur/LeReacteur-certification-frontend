@@ -6,8 +6,11 @@ import axios from "axios";
 // import world countries list
 import countryList from "../assets/countriesList";
 
+import BottomContent from "../containers/BottomContent";
+
 const SituationDuBien = props => {
   const {
+    pagination,
     setPagination,
     answers,
     setAnswers,
@@ -15,11 +18,18 @@ const SituationDuBien = props => {
     progressBar
   } = props;
 
+  // declare previous and next pages
+  const previousPage = "actualSituation";
+  const nextPage = "projectAmount";
+  setProgressBar(60);
+
+  const [selectOpen, setSelectOpen] = useState(false);
+
   const [countryOfProperty, setCountryOfProperty] = useState(
-    answers.addressOfProperty.country || ""
+    answers.addressOfProperty.country || "France"
   );
   const [townOfProperty, setTownOfProperty] = useState(
-    answers.addressOfProperty.country || ""
+    answers.addressOfProperty.cityOrZipCode
   );
   const [list, setList] = useState([]);
 
@@ -41,7 +51,9 @@ const SituationDuBien = props => {
   //Store in the empty array the list
   for (let i = 0; i < countryListValues.length; i++) {
     countryListOption.push(
-      <option value={countryListValues[i]}>{countryListValues[i]}</option>
+      <option key={i} value={countryListValues[i]}>
+        {countryListValues[i]}
+      </option>
     );
   }
 
@@ -70,68 +82,86 @@ const SituationDuBien = props => {
 
   return (
     <>
-      <h1>TypeDuBien</h1>
-      <div>{JSON.stringify(answers)}</div>
+      <div className="mb-100">
+        <h1 className="page-title">OÙ SE SITUE LE BIEN À FINANCER?</h1>
+        <div className="property-location-country-container">
+          <div className="property-location-country-question">
+            Dans quel pays se situe votre projet?
+          </div>
+          <select
+            className="property-location-country-list"
+            value={countryOfProperty}
+            onChange={event => {
+              setCountryOfProperty(event.target.value);
+              setAnswers({
+                ...answers,
+                addressOfProperty: {
+                  country: event.target.value
+                }
+              });
+            }}
+          >
+            {countryListOption}
+          </select>
+        </div>
+        <div className="text-input-container">
+          <div className="text-input-description">Ville ou code postal</div>
+          <div className="property-location-city-choice-container">
+            <input
+              className="text-input-inline"
+              value={townOfProperty}
+              onChange={event => {
+                setTownOfProperty(event.target.value);
+                setSelectOpen(true);
+              }}
+            />
+            {selectOpen === true ? (
+              <select
+                className="property-location-city-select"
+                size={5}
+                value={townOfProperty}
+                onChange={event => {
+                  setTownOfProperty(event.target.value);
+                  setAnswers({
+                    ...answers,
+                    addressOfProperty: {
+                      country: countryOfProperty,
+                      cityOrZipCode: event.target.value
+                    }
+                  });
+                }}
+                onClick={() => {
+                  setSelectOpen(false);
+                }}
+              >
+                {cityList}
+              </select>
+            ) : null}
+          </div>
+        </div>
 
-      <div>Dans quel pays se situe votre projet?</div>
-      <select
-        value={countryOfProperty}
-        onChange={event => {
-          setCountryOfProperty(event.target.value);
-          setAnswers({
-            ...answers,
-            addressOfProperty: {
-              country: event.target.value
-            }
-          });
-        }}
-      >
-        {countryListOption}
-      </select>
-      <div>Ville ou code postal</div>
-      <input
-        value={townOfProperty}
-        onChange={event => {
-          setTownOfProperty(event.target.value);
-        }}
-        // autoComplete={cityArray}
+        <div className="property-location-city-explaination">
+          <div>
+            La connaissance du code postal du bien permettra de calculer les
+            frais de notaires selon les conditions en vigueur dans le
+            département concerné.
+          </div>
+          <div>
+            Si vous êtes en recherche de bien sur plusieurs commununes, indiquez
+            une commune ciblée.
+          </div>
+        </div>
+      </div>
+      <BottomContent
+        answers={answers}
+        pagination={pagination}
+        setPagination={setPagination}
+        previous={previousPage}
+        next={nextPage}
+        progressBar={progressBar}
+        param={answers.addressOfProperty.country}
+        param2={answers.addressOfProperty.cityOrZipCode}
       />
-
-      <select
-        size={5}
-        value={townOfProperty}
-        onChange={event => {
-          setTownOfProperty(event.target.value);
-          setAnswers({
-            ...answers,
-            addressOfProperty: {
-              country: countryOfProperty,
-              cityOrZipCode: event.target.value
-            }
-          });
-        }}
-      >
-        {cityList}
-      </select>
-
-      <button
-        onClick={() => {
-          setPagination("actualSituation");
-          setProgressBar(Number(progressBar).toFixed(2) - 14.3);
-          console.log(progressBar);
-        }}
-      >
-        Précédent
-      </button>
-      <button
-        onClick={() => {
-          setPagination("projectAmout");
-          setProgressBar(Number(progressBar).toFixed(2) + 14.3);
-          console.log(progressBar);
-        }}
-      >
-        Suivant
-      </button>
     </>
   );
 };

@@ -28,7 +28,6 @@ const BackOfficeReadOne = () => {
       const response = await axios.get(
         "http://localhost:8000/admintoggle/delete/" + id
       );
-      console.log(response.data);
       if (response.data) {
         alert(JSON.stringify(response.data));
       }
