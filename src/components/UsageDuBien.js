@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
+
+// import bottom content
+import BottomContent from "../containers/BottomContent";
 
 const UsageDuBien = props => {
   const {
@@ -6,68 +9,117 @@ const UsageDuBien = props => {
     setPagination,
     answers,
     setAnswers,
-    copyGlobalObject
+    progressBar,
+    setProgressBar
   } = props;
 
-  const keyUseOfProperty = "useOfProperty";
-
-  const [valueUseOfProperty, setValueUseOfProperty] = useState(
-    "Résidence secondaire"
-  );
+  // declare previous and next pages
+  const previousPage = "stateOfGood";
+  const nextPage = "actualSituation";
+  setProgressBar(30);
 
   return (
     <>
-      <h1>Usage du bien</h1>
-      <div>{JSON.stringify(answers)}</div>
-      <form onSubmit={() => {}}>
-        <input
-          type="radio"
-          name="UsageDuBien"
-          value="Résidence principale"
-          onChange={event => {
-            setValueUseOfProperty(event.target.value);
-          }}
-        />
-        <div>Résidence principale</div>
-        <input
-          type="radio"
-          name="UsageDuBien"
-          value="Résidence secondaire"
-          onChange={event => {
-            setValueUseOfProperty(event.target.value);
-          }}
-        />
-        <div>Résidence secondaire</div>
-        <input
-          type="radio"
-          name="UsageDuBien"
-          value="Investissemet locatif"
-          onChange={event => {
-            setValueUseOfProperty(event.target.value);
-          }}
-        />
-        <div>Investissement locatif</div>
-      </form>
-      <button
-        onClick={() => {
-          setPagination(pagination - 1);
-        }}
-      >
-        Précédent
-      </button>
-      <button
-        onClick={() => {
-          setPagination(pagination + 1);
-          copyGlobalObject(
-            answers,
-            setAnswers,
-            keyUseOfProperty,
-            valueUseOfProperty
-          );
-        }}
-      >
-        Suivant
-      </button>
+      <div className="mb-150">
+        <h1 className="page-title">USAGE DU BIEN</h1>
+        <div className="button-display">
+          <div
+            className={
+              answers.useOfProperty === "Résidence principale"
+                ? "three-choices-button-on"
+                : "three-choices-button-off"
+            }
+            onClick={event => {
+              setAnswers({
+                ...answers,
+                useOfProperty: "Résidence principale"
+              });
+              setPagination("actualSituation");
+            }}
+          >
+            <input
+              className={"input-text-align"}
+              type="radio"
+              name="UsageDuBien"
+              value="Résidence principale"
+              checked={
+                answers.useOfProperty === "Résidence principale" ? true : null
+              }
+              readOnly
+            />
+            RÉSIDENCE PRINCIPALE
+          </div>
+
+          <div
+            className={
+              answers.useOfProperty === "Résidence secondaire"
+                ? "three-choices-button-on"
+                : "three-choices-button-off"
+            }
+            onClick={event => {
+              setAnswers({
+                ...answers,
+                useOfProperty: "Résidence secondaire"
+              });
+              setPagination("actualSituation");
+            }}
+          >
+            <input
+              type="radio"
+              name="UsageDuBien"
+              value="Résidence secondaire"
+              checked={
+                answers.useOfProperty === "Résidence secondaire" ? true : null
+              }
+              onChange={event => {
+                setAnswers({
+                  ...answers,
+                  useOfProperty: event.target.value
+                });
+              }}
+            />
+            RÉSIDENCE SECONDAIRE
+          </div>
+          <div
+            className={
+              answers.useOfProperty === "Investissemet locatif"
+                ? "three-choices-button-on"
+                : "three-choices-button-off"
+            }
+            onClick={event => {
+              setAnswers({
+                ...answers,
+                useOfProperty: "Investissemet locatif"
+              });
+            }}
+          >
+            <input
+              type="radio"
+              name="UsageDuBien"
+              value="Investissemet locatif"
+              checked={
+                answers.useOfProperty === "Investissemet locatif" ? true : null
+              }
+              onChange={event => {
+                setAnswers({
+                  ...answers,
+                  useOfProperty: event.target.value
+                });
+              }}
+            />
+            INVESTISSEMENT LOCATIF
+          </div>
+        </div>
+      </div>
+      <BottomContent
+        answers={answers}
+        pagination={pagination}
+        setPagination={setPagination}
+        previous={previousPage}
+        next={nextPage}
+        progressBar={progressBar}
+        param={answers.useOfProperty}
+      />
     </>
   );
 };

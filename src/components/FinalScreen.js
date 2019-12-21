@@ -1,17 +1,30 @@
 import React from "react";
 
+import Cookies from "js-cookie";
+
+import answersTemplate from "../assets/answersTemplate";
+
 const FinalScreen = props => {
-  const { pagination, setPagination, answers, setAnswers } = props;
+  const { setPagination, Id, setProgressBar, setAnswers } = props;
+  console.log(Id);
+
   return (
     <>
-      <div>FinalScreen</div>
-      <div>{JSON.stringify(answers)}</div>
+      <h1 className="page-title">ET VOILÀ, LE FORMULAIRE EST TERMINÉ</h1>
+      <div>
+        Votre numéro de dossier est le : <b>{Id}</b>
+      </div>
       <button
+        className="back-button mt-mb-10 width-200"
         onClick={() => {
-          setPagination(pagination - 1);
+          Cookies.remove("userData");
+          Cookies.remove("progressBar");
+          setPagination("home");
+          setProgressBar(0);
+          setAnswers(answersTemplate);
         }}
       >
-        Précédent
+        Faites une nouvelle simulation!
       </button>
     </>
   );

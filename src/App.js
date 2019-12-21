@@ -1,13 +1,20 @@
 // Import react components
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-//import assets
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+//import cookies
+import Cookies from "js-cookie";
 
 //import styles
 import "./App.css";
 
 //import usual components
-import Header from "./components/Header";
+import Header from "./containers/Header";
+
+import BackOffice from "./containers/BackOffice";
+import BackOfficeReadOne from "./containers/BackOfficeReadOne";
+import BackOfficeLogIn from "./containers/BackOfficeLogIn";
 
 //import answers template
 import answersTemplate from "./assets/answersTemplate";
@@ -23,106 +30,167 @@ import UserInformation from "./components/UserInformation";
 import FinalScreen from "./components/FinalScreen";
 
 //Run app
-
 function App() {
-  const [pagination, setPagination] = useState(0);
-  const [answers, setAnswers] = useState(answersTemplate);
+  //get cookies
+  let CookiesPage = Cookies.get("userPage");
+  let CookiesData = Cookies.getJSON("userData");
+  let CookiesProgressBar = Cookies.get("progressBar");
 
-  //copy an object
-  const copyGlobalObject = (
-    answers,
-    setAnswers,
-    parameter,
-    value,
-    parameter2
-  ) => {
-    let answersCopy = Object.assign({}, answers);
+  // check if Cookies are undefined --> if so, set default value
+  if (CookiesData === undefined) {
+    CookiesData = answersTemplate;
+  }
 
-    // 1st condition: handle the case where there are severa inputs to add to the object / 2nd condition: handle cases where there is only one input to add to the object.
-    if (answersCopy[parameter][parameter2] === "") {
-      answersCopy[parameter][parameter2] = value;
-    } else {
-      answersCopy[parameter] = value;
-      setAnswers(answersCopy);
-    }
-    return answersCopy;
-  };
+  if (CookiesPage === undefined) {
+    CookiesPage = "home";
+  }
+
+  if (CookiesProgressBar === undefined) {
+    CookiesProgressBar = 0;
+  }
+
+  //setState relying if there are cookies or not
+  const [pagination, setPagination] = useState(CookiesPage);
+  const [answers, setAnswers] = useState(CookiesData);
+  const [Id, setUserId] = useState("");
+  const [adminConnected, setAdminConnected] = useState(false);
+  const [progressBar, setProgressBar] = useState(CookiesProgressBar);
+
+  //set userData everytime the global state is updated
+  useEffect(() => {
+    Cookies.set("userData", answers);
+  }, [answers]);
+
+  //set userPage everytime the pagination is updated
+  useEffect(() => {
+    Cookies.set("userPage", pagination);
+  }, [pagination]);
+
+  useEffect(() => {
+    Cookies.set("progressBar", progressBar);
+  }, [progressBar]);
 
   return (
     <>
-      <Header />
-      {pagination === 0 ? (
-        <TypeDeBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 1 ? (
-        <EtatDuBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 2 ? (
-        <UsageDuBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 3 ? (
-        <VotreSituationActuelle
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 4 ? (
-        <SituationDuBien
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 5 ? (
-        <MontantDuProjet
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 6 ? (
-        <UserInformation
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
-      {pagination === 7 ? (
-        <FinalScreen
-          pagination={pagination}
-          setPagination={setPagination}
-          answers={answers}
-          setAnswers={setAnswers}
-          copyGlobalObject={copyGlobalObject}
-        />
-      ) : null}
+      <div className="app">
+        <div className="container">
+          <Router>
+            <Header />
+            <Switch>
+              <Route exact path="/">
+                {pagination === "home" ? (
+                  <>
+                    <TypeDeBien
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      progressBar={progressBar}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "stateOfGood" ? (
+                  <>
+                    <EtatDuBien
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      progressBar={progressBar}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "useOfGood" ? (
+                  <>
+                    <UsageDuBien
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      progressBar={progressBar}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "actualSituation" ? (
+                  <>
+                    <VotreSituationActuelle
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      progressBar={progressBar}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "goodSituation" ? (
+                  <>
+                    <SituationDuBien
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      progressBar={progressBar}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "projectAmount" ? (
+                  <>
+                    <MontantDuProjet
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      progressBar={progressBar}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "userInformation" ? (
+                  <>
+                    <UserInformation
+                      pagination={pagination}
+                      setPagination={setPagination}
+                      answers={answers}
+                      setAnswers={setAnswers}
+                      setUserId={setUserId}
+                      setProgressBar={setProgressBar}
+                    />
+                  </>
+                ) : null}
+                {pagination === "finalPage" ? (
+                  <>
+                    <FinalScreen
+                      pagination={pagination}
+                      setAnswers={setAnswers}
+                      setPagination={setPagination}
+                      setProgressBar={setProgressBar}
+                      answers={answers}
+                      Id={Id}
+                    />
+                  </>
+                ) : null}
+              </Route>
+              <Route path="/backofficelogin/">
+                <BackOfficeLogIn
+                  adminConnected={adminConnected}
+                  setAdminConnected={setAdminConnected}
+                />
+              </Route>
+              <Route path="/backofficereadone/:id">
+                <BackOfficeReadOne />
+              </Route>
+              <Route path="/backoffice">
+                <BackOffice />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
+      </div>
     </>
   );
 }
