@@ -28,7 +28,7 @@ const BackOffice = () => {
   // Launch request whenever their is new data
   useEffect(() => {
     fetchData();
-  }, [data]);
+  }, []);
 
   return (
     <>
