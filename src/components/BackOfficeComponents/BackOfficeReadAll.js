@@ -7,13 +7,12 @@ const BackOfficeReadAll = props => {
   const { devis, setEraseDevis } = props;
 
   //  Call the backend to delete on Devis
-  const deleteDevis = async () => {
+  const deleteDevis = async _id => {
     try {
       const response = await axios.get(
         "https://lereacteur-certification-back.herokuapp.com/admintoggle/delete/" +
-          props._id
+          _id
       );
-      console.log("test" + response.data);
       if (response.data) {
         alert(JSON.stringify(response.data));
       }
@@ -55,7 +54,7 @@ const BackOfficeReadAll = props => {
               <span
                 onClick={() => {
                   setEraseDevis(true);
-                  deleteDevis();
+                  deleteDevis(devis._id);
                 }}
               >
                 X
