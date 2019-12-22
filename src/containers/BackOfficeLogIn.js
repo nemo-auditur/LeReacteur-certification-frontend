@@ -53,7 +53,11 @@ const BackOfficeLogIn = props => {
           {adminConnected === true ? (
             <>
               <Link to={"/backoffice"}>
-                <input type="submit" value={"Se connecter"} />
+                <input
+                  type="submit"
+                  value={"Se connecter"}
+                  className="login-button mt-mb-10"
+                />
               </Link>
             </>
           ) : (
