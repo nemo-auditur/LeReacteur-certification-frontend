@@ -55,7 +55,7 @@ const MontantDuProjet = props => {
       ...answers,
       amountOfProject: {
         estimateAmountOfAcquisition: estimatedAcquireAmount,
-        estimateAmountOfWorkds: estimatedWorksAmount,
+        estimateAmountOfWorks: estimatedWorksAmount,
         notaryFees: notaryFees,
         totalBudget: calculTotalAmount
       }
