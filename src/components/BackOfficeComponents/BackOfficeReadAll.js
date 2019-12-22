@@ -14,6 +14,7 @@ const BackOfficeReadAll = props => {
         "https://lereacteur-certification-back.herokuapp.com/admintoggle/delete/" +
           props._id
       );
+      console.log("restponse");
       if (response.data) {
         alert(JSON.stringify(response.data));
       }
