@@ -28,7 +28,8 @@ const BackOfficeReadOne = () => {
   const deleteDevis = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/admintoggle/delete/" + id
+        "https://lereacteur-certification-back.herokuapp.com/admintoggle/delete/" +
+          id
       );
       if (response.data) {
         alert(JSON.stringify(response.data));
