@@ -24,7 +24,7 @@ const MontantDuProjet = props => {
     answers.amountOfProject.estimateAmountOfAcquisition || ""
   );
   const [estimatedWorksAmount, setEstimatedWorksAmount] = useState(
-    answers.amountOfProject.estimateWorksAmount || ""
+    answers.amountOfProject.estimateAmountOfWorks || ""
   );
 
   // Update data of static values for notary fees and global budget everytime
