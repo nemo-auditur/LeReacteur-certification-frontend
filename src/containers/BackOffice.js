@@ -11,6 +11,7 @@ import BackOfficeReadAll from "../components/BackOfficeComponents/BackOfficeRead
 const BackOffice = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [eraseDevis, setEraseDevis] = useState(false);
 
   // get data from database
   const fetchData = async () => {
@@ -28,7 +29,7 @@ const BackOffice = () => {
   // Launch request whenever their is new data
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [eraseDevis]);
 
   return (
     <>
@@ -55,7 +56,10 @@ const BackOffice = () => {
             {data.map((devis, index) => {
               return (
                 <Link to={"/backofficereadone/" + devis._id} key={index}>
-                  <BackOfficeReadAll devis={devis} />
+                  <BackOfficeReadAll
+                    devis={devis}
+                    setEraseDevis={setEraseDevis}
+                  />
                 </Link>
               );
             })}

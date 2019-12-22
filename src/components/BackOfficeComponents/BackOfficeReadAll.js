@@ -54,6 +54,7 @@ const BackOfficeReadAll = props => {
               {/* deleted on devis if clicked */}
               <span
                 onClick={() => {
+                  setEraseDevis(true);
                   deleteDevis();
                 }}
               >
