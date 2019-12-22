@@ -127,6 +127,7 @@ const MontantDuProjet = props => {
         next={nextPage}
         progressBar={progressBar}
         param={estimatedAcquireAmount}
+        param2={estimatedWorksAmount}
       />
     </>
   );
