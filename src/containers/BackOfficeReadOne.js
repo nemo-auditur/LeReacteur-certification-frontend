@@ -31,6 +31,8 @@ const BackOfficeReadOne = () => {
         "https://lereacteur-certification-back.herokuapp.com/admintoggle/delete/" +
           id
       );
+      console.log("test");
+      console.log(response.data);
       if (response.data) {
         alert(JSON.stringify(response.data));
       }
