@@ -59,7 +59,7 @@ const BackOfficeLogIn = props => {
           ) : (
             <>
               <input
-                className="next-button mt-mb-10"
+                className="login-button mt-mb-10"
                 type="submit"
                 value={"Se connecter"}
               />
