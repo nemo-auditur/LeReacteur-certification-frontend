@@ -1,6 +1,10 @@
+//import react
 import React from "react";
 
 import Footer from "./Footer";
+
+// specific footer for the last page in order to send the "Devis" to the backend for storing it in DB
+// and send the email to the User
 
 const FinalBottomContent = props => {
   const {
@@ -30,6 +34,7 @@ const FinalBottomContent = props => {
           </button>
         )}
         <Footer progressBar={progressBar} />
+        {/* display next button if all required params are filled */}
         {param !== "" && param2 === "false" ? (
           <button
             className="next-button"

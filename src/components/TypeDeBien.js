@@ -25,7 +25,7 @@ const TypeDuBien = props => {
     <>
       <div className="mb-150">
         <h1 className="page-title">TYPE DU BIEN</h1>
-        <div className="button-display">
+        <div className="button-container">
           <div
             className={
               answers.typeOfProperty === "Maison"
@@ -33,6 +33,7 @@ const TypeDuBien = props => {
                 : "two-choices-button-off"
             }
             value="Maison"
+            // Store value to the global object + page manager
             onClick={event => {
               setAnswers({
                 ...answers,
@@ -56,6 +57,7 @@ const TypeDuBien = props => {
                 ? "two-choices-button-on"
                 : "two-choices-button-off"
             }
+            // Store value to the global object + page manager
             onClick={event => {
               setAnswers({
                 ...answers,

@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+//import Router
 import { Link } from "react-router-dom";
 
+//import components
 import BackOfficeReadAll from "../components/BackOfficeComponents/BackOfficeReadAll";
 
+//declare state for backoffice parts to store fetchData
 const BackOffice = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // get data from database
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/admintoggle");
+      const response = await axios.get(
+        "https://lereacteur-certification-back.herokuapp.com/admintoggle"
+      );
       setData(response.data);
       setIsLoading(false);
     } catch (error) {
@@ -19,6 +25,7 @@ const BackOffice = () => {
     }
   };
 
+  // Launch request whenever their is new data
   useEffect(() => {
     fetchData();
   }, [data]);
@@ -27,7 +34,7 @@ const BackOffice = () => {
     <>
       {isLoading === true ? (
         <>
-          <span>En chargement...</span>
+          <span>En cours de chargement...</span>
         </>
       ) : (
         <>

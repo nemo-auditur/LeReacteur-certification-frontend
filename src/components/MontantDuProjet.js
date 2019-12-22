@@ -27,23 +27,30 @@ const MontantDuProjet = props => {
     answers.amountOfProject.estimatedWorksAmount || ""
   );
 
+  // Update data of static values for notary fees and global budget everytime
+  //estimatedAcquireAmount and estimatedWorksAmount are updated
+  //
   useEffect(() => {
     const notaryOldRate = 0.0738;
 
     const notaryNewRate = 0.018;
 
+    // determine what rate to use for calculation
+    // depending if the property is "nouveau" ou "ancien"
     const rate =
       answers["conditionOfProperty"] === "Ancien"
         ? notaryOldRate
         : notaryNewRate;
     const notaryFees = (estimatedAcquireAmount * rate).toFixed(2);
 
+    // Calculated total amount
     const calculTotalAmount = (
       Number(estimatedAcquireAmount) +
       Number(notaryFees) +
       Number(estimatedWorksAmount)
     ).toFixed(2);
 
+    //store value in the global object
     setAnswers({
       ...answers,
       amountOfProject: {
@@ -70,12 +77,6 @@ const MontantDuProjet = props => {
             value={estimatedAcquireAmount}
             onChange={event => {
               setEstimatedAcquireAmount(event.target.value);
-              // setAnswers({
-              //   ...answers,
-              //   amountOfProject: {
-              //     estimateAmountOfAcquisition: event.target.value
-              //   }
-              // });
             }}
           />
           <div className="euro-symbol">€</div>
@@ -91,13 +92,6 @@ const MontantDuProjet = props => {
             value={estimatedWorksAmount}
             onChange={event => {
               setEstimatedWorksAmount(event.target.value);
-              // setAnswers({
-              //   ...answers,
-              //   amountOfProject: {
-              //     estimateAmountOfAcquisition: estimatedAcquireAmount,
-              //     estimateAmountOfWorkds: event.target.value
-              //   }
-              // });
             }}
           />
           <div className="euro-symbol">€</div>
@@ -109,16 +103,6 @@ const MontantDuProjet = props => {
             type="number"
             name="FraisDeNotaire"
             value={answers.amountOfProject.notaryFees}
-            // onChange={notaryFees => {
-            // setAnswers({
-            //   ...answers,
-            //   amountOfProject: {
-            //     estimateAmountOfAcquisition: estimatedAcquireAmount,
-            //     estimateAmountOfWorkds: estimatedWorksAmount,
-            //     notaryFees: notaryFees
-            //   }
-            // });
-            // }}
           />
           <div className="euro-symbol">€</div>
         </div>
@@ -131,17 +115,6 @@ const MontantDuProjet = props => {
             type="number"
             name="BudgetTotal"
             value={answers.amountOfProject.totalBudget}
-            // onChange={calculTotalAmount => {
-            //   setAnswers({
-            //     ...answers,
-            //     amountOfProject: {
-            //       estimateAmountOfAcquisition: estimatedAcquireAmount,
-            //       estimatedWorksAmount: estimatedWorksAmount,
-            //       notaryFees: notaryFees,
-            //       totalBudget: calculTotalAmount
-            //     }
-            //   });
-            // }}
           />
           <div className="euro-symbol">€</div>
         </div>

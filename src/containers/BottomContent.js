@@ -1,5 +1,7 @@
+//import React
 import React from "react";
 
+//import Footer
 import Footer from "./Footer";
 
 const BottomContent = props => {
@@ -16,6 +18,7 @@ const BottomContent = props => {
   return (
     <>
       <div className="bottom-content">
+        {/* Dislay "previous button exepted for the 1st page" */}
         {pagination === "home" ? (
           <div className="blank-button"></div>
         ) : (
@@ -28,7 +31,9 @@ const BottomContent = props => {
             Précédent
           </button>
         )}
+        {/* handle progressbar */}
         <Footer progressBar={progressBar} />
+        {/* display next button if all required params are filled */}
         {param === "" || param <= 0 ? (
           <div className="blank-button"></div>
         ) : (

@@ -9,9 +9,8 @@ import Cookies from "js-cookie";
 //import styles
 import "./App.css";
 
-//import usual components
+//import structural components
 import Header from "./containers/Header";
-
 import BackOffice from "./containers/BackOffice";
 import BackOfficeReadOne from "./containers/BackOfficeReadOne";
 import BackOfficeLogIn from "./containers/BackOfficeLogIn";
@@ -49,7 +48,7 @@ function App() {
     CookiesProgressBar = 0;
   }
 
-  //setState relying if there are cookies or not
+  //setState depending if there are cookies or not
   const [pagination, setPagination] = useState(CookiesPage);
   const [answers, setAnswers] = useState(CookiesData);
   const [Id, setUserId] = useState("");
@@ -66,6 +65,7 @@ function App() {
     Cookies.set("userPage", pagination);
   }, [pagination]);
 
+  //update progressbar status
   useEffect(() => {
     Cookies.set("progressBar", progressBar);
   }, [progressBar]);
@@ -77,6 +77,7 @@ function App() {
           <Router>
             <Header />
             <Switch>
+              {/* "Devis" Funnel  with all pages*/}
               <Route exact path="/">
                 {pagination === "home" ? (
                   <>
@@ -175,6 +176,7 @@ function App() {
                   </>
                 ) : null}
               </Route>
+              {/* Handle BackOffice */}
               <Route path="/backofficelogin/">
                 <BackOfficeLogIn
                   adminConnected={adminConnected}

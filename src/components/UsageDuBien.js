@@ -22,7 +22,7 @@ const UsageDuBien = props => {
     <>
       <div className="mb-150">
         <h1 className="page-title">USAGE DU BIEN</h1>
-        <div className="button-display">
+        <div className="button-container">
           <div
             className={
               answers.useOfProperty === "Résidence principale"

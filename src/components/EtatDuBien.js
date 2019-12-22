@@ -13,9 +13,10 @@ const EtatDuBien = props => {
     progressBar
   } = props;
 
-  const [valueConditionOfProperty, setValueConditionOfProperty] = useState(
-    answers.conditionOfProperty
-  );
+  // declare states for this page.
+  // const [valueConditionOfProperty, setValueConditionOfProperty] = useState(
+  //   answers.conditionOfProperty
+  // );
 
   // page situation
   const previousPage = "home";
@@ -27,7 +28,7 @@ const EtatDuBien = props => {
     <>
       <div className="mb-150">
         <h1 className="page-title">ETAT DU BIEN</h1>
-        <div className="button-display">
+        <div className="button-container">
           <div
             className={
               answers.conditionOfProperty === "Ancien"
@@ -39,7 +40,7 @@ const EtatDuBien = props => {
                 ...answers,
                 conditionOfProperty: "Ancien"
               });
-              setValueConditionOfProperty(true);
+              // setValueConditionOfProperty(true);
               setPagination("useOfGood");
             }}
           >
@@ -63,7 +64,7 @@ const EtatDuBien = props => {
                 ...answers,
                 conditionOfProperty: "Neuf"
               });
-              setValueConditionOfProperty(true);
+              // setValueConditionOfProperty(true);
               setPagination("useOfGood");
             }}
           >

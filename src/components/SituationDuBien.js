@@ -23,14 +23,19 @@ const SituationDuBien = props => {
   const nextPage = "projectAmount";
   setProgressBar(60);
 
-  const [selectOpen, setSelectOpen] = useState(false);
+  //declare states for this page
 
+  // display / close auto complete cities list
+  const [selectOpen, setSelectOpen] = useState(false);
+  //handle country list with default value "France"
   const [countryOfProperty, setCountryOfProperty] = useState(
     answers.addressOfProperty.country || "France"
   );
+  //handle city list
   const [townOfProperty, setTownOfProperty] = useState(
     answers.addressOfProperty.cityOrZipCode
   );
+  // handle list of cities for the select
   const [list, setList] = useState([]);
 
   // #### Get DATA from VICOPO API ####
@@ -58,15 +63,22 @@ const SituationDuBien = props => {
   }
 
   // #### HANDLE CITIES ####
+  //declare empty array
   const cityArray = [];
+
+  // Push in the empty array the value of the state updated
+  // by the API call
+  // Aim: permit
   for (let i = 0; i < list.length; i++) {
     const key = list[i];
     let city = key.city;
     cityArray.push(city);
   }
 
+  // declare a empty array
   const cityList = [];
 
+  // handle option for the select
   for (let i = 0; i < cityArray.length; i++) {
     cityList.push(
       <option value={cityArray[i]} key={i}>

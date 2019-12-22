@@ -17,18 +17,12 @@
 }
 
 /*  RESET */
-ul,
-li {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
-/* ########## GLOBAL RULES ################## */
+/* ### GLOBAL ### */
 
 :root {
-  --orange: #ff9d22;
-  --darkOrange: #ed7e18;
+  --orange: #ff9e23;
+  --darkOrange: #e57f00;
   --grey: #e4e4e4;
   --black: #1e1e1e;
   --white: white;
@@ -49,7 +43,7 @@ li {
   font-weight: bolder;
   margin-bottom: 30px;
 }
-.button-display {
+.button-container {
   display: flex;
   justify-content: space-between;
 }
@@ -101,6 +95,7 @@ li {
   font-size: 20px;
   padding-left: 10px;
 }
+
 /* ### Bottom content ###*/
 .bottom-content {
   display: flex;
@@ -153,17 +148,6 @@ li {
   outline: none;
 }
 
-.pv-50 {
-  padding: 50px 0;
-}
-
-.p-15 {
-  padding: 15px;
-}
-
-.br-5 {
-  border-radius: 5px;
-}
 .mt-mb-10 {
   margin-bottom: 10px;
   margin-top: 10px;
@@ -178,6 +162,7 @@ li {
 }
 .center {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -239,10 +224,10 @@ li {
   box-shadow: 0px 5px lightgrey;
 }
 .two-choices-button-off:hover {
+  border: none;
   background-color: var(--orange);
   color: var(--white);
   box-shadow: 0px 5px var(--darkOrange);
-  border: none;
 }
 .two-choices-button-off {
   width: 500px;
@@ -453,6 +438,17 @@ li {
 }
 
 .backoffice-login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.backoffice-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .backoffice-text-input-container-grey {
@@ -474,4 +470,26 @@ li {
   border-left: solid 1px var(--orange);
   text-align: center;
   line-height: 60px;
+}
+
+.backoffice-title-detail {
+  color: var(--orange);
+  font-size: 20px;
+  font-weight: bolder;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.backoffice-text-input-container-grey {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: var(--grey);
+}
+
+.backoffice-text-input-container {
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: var(--white);
 }

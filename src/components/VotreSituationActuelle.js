@@ -22,7 +22,7 @@ const VotreSituationActuelle = props => {
     <>
       <div className="mb-150">
         <h1 className="page-title">VOTRE SITUATION ACTUELLE</h1>
-        <div className="button-display">
+        <div className="button-container">
           <div
             className={
               answers.actualSituationOfOwner === "Locataire"

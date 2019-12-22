@@ -5,10 +5,13 @@ import { Link } from "react-router-dom";
 
 const BackOfficeReadAll = props => {
   const { devis } = props;
+
+  //  Call the backend to delete on Devis
   const deleteDevis = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/admintoggle/delete/" + props._id
+        "https://lereacteur-certification-back.herokuapp.com/admintoggle/delete/" +
+          props._id
       );
       if (response.data) {
         alert(JSON.stringify(response.data));
@@ -47,6 +50,7 @@ const BackOfficeReadAll = props => {
           </Link>
           <Link to={"/backoffice/"} style={{ textDecoration: "none" }}>
             <div className="backoffice-array-title">
+              {/* deleted on devis if clicked */}
               <span
                 onClick={() => {
                   deleteDevis();

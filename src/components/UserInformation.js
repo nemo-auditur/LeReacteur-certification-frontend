@@ -32,9 +32,12 @@ const UserInformation = props => {
   // Send the "devis" to database et get the file _id
   const fetchData = async () => {
     try {
-      const response = await axios.post("http://localhost:8000/devisvalide", {
-        ...answers
-      });
+      const response = await axios.post(
+        "https://lereacteur-certification-back.herokuapp.com/devisvalide",
+        {
+          ...answers
+        }
+      );
       await setUserId(response.data._id);
     } catch (e) {
       console.log(e.message);
