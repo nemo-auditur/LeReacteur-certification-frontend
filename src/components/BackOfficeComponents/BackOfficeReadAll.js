@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const BackOfficeReadAll = props => {
-  const { devis } = props;
+  const { devis, setEraseDevis } = props;
 
   //  Call the backend to delete on Devis
   const deleteDevis = async () => {
